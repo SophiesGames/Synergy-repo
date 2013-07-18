@@ -16,5 +16,7 @@ public class Smog : MonoBehaviour
         }
 
         this.gameObject.GetComponent<AnimateRGB>().SetRGBA(4, transparency);
+		
+		// @todo: AD: Update music "Destruction level". Here?
     }
 }

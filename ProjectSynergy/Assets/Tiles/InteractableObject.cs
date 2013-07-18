@@ -9,12 +9,18 @@ public class InteractableObject : MonoBehaviour
     public bool isCorrupt = false;
     [HideInInspector]
     public Vector3 worldPosition;
-
+	[HideInInspector]
+	public string objectType = ""; // AD: What kind of object is this?
+	
     public AudioClip corruptSound;
     public AudioClip rejuvenateSound;
 
     private void Start()
     {
+		// AD: Assign object type. Grab it from class name, 
+		// but we could also override the function in child classes.
+		objectType = this.GetType().Name;
+		
         if (startCorrupt)
         {
             gameObject.GetComponent<AnimateSprite>().SetFrameSet("idleCorrupt");
@@ -43,7 +49,13 @@ public class InteractableObject : MonoBehaviour
         {
             if (corruptSound != null)
             {
-                audio.PlayOneShot(corruptSound);
+				// AD: Don't use basic Unity audio.
+                //audio.PlayOneShot(corruptSound);
+				
+				// AD: Instead, call Fabric "Corrupt" event with current class name as parameter.
+				//Fabric.EventManager.Instance.PostEvent("CorruptGrass");
+				Fabric.EventManager.Instance.PostEvent("Corrupt", Fabric.EventAction.SetSwitch, "Alert");
+				Fabric.EventManager.Instance.PostEvent("Corrupt");
             }
             gameObject.GetComponent<AnimateSprite>().PlayAnimation("Corrupt", 1);
             LevelManager.levelManager.nonCorruptedObjects.Remove(gameObject);//take from one lsit
@@ -56,7 +68,13 @@ public class InteractableObject : MonoBehaviour
     {
         if (corruptSound != null)
         {
-            audio.PlayOneShot(rejuvenateSound);
+			// @todo: AD - call Fabric rejuvenate event.
+            //audio.PlayOneShot(rejuvenateSound);
+			
+			// @todo:
+			// AD: Instead, call Fabric "Rejuvenate" event with current class name as parameter.
+			Fabric.EventManager.Instance.PostEvent("Corrupt", Fabric.EventAction.SetSwitch, "Warning");
+			Fabric.EventManager.Instance.PostEvent("Corrupt");
         }
         AnimateSprite animateSprite = gameObject.GetComponent<AnimateSprite>();
         animateSprite.PlayAnimation("Rejuvenate", 1);
