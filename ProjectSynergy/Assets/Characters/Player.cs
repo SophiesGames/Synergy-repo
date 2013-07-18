@@ -127,7 +127,10 @@ public class Player : MonoBehaviour
             {
                 isJumping = true;
                 velocity.y = jumpForce;
-                audio.PlayOneShot(jumpSFX);
+				
+				// AD: Use Fabric.
+                //audio.PlayOneShot(jumpSFX);
+				Fabric.EventManager.Instance.PostEvent("Jump");
             }
         }
         shroomJump = false;                                         //turns it off if its on

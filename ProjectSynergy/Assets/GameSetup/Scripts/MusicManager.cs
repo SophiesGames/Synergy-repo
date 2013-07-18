@@ -49,8 +49,17 @@ public class MusicManager : MonoBehaviour
     private void Start()
     {
         //audio.loop = true;
-        audio.Play();   //plays the default music to start with.
-
+		
+		// AD: Commenting out current audio.
+        //audio.Play();   //plays the default music to start with.
+		
+		// AD: Using Fabric instead.
+		// @todo: Rename event to something self-explanatory.
+		Fabric.EventManager.Instance.PostEvent("Simple");
+		
+		// AD: Testing Fabric timeline parameters.
+		// @todo: Send proper values here.
+		Fabric.EventManager.Instance.SetParameter("Simple", "Destruction", 0.5f);
     }
 
     private void Update()
@@ -75,8 +84,13 @@ public class MusicManager : MonoBehaviour
             {
                 audio.clip = SongThree;
             }
-
-            audio.Play();
+			
+			// AD: Commenting out current audio.
+            //audio.Play();
+			
+			// AD: Using Fabric instead.
+			// @todo: Eventually, we will change out tracks here.
+			//Fabric.EventManager.Instance.PostEvent("TestEvent1");
         }
 
         //ChangeTrack();                //the old system with streaming uses event manager and each level to set a newTrackNumber
