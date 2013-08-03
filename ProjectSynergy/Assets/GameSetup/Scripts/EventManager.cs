@@ -358,7 +358,7 @@ public class EventManager : MonoBehaviour
                     GameObject.Find("PlayerFade").gameObject.GetComponent<Player>().freezePlayer = true;
                     GameObject.Find("PlayerFade").gameObject.GetComponent<Player>().freezeJump = true;
                     GameObject.Find("EarthHas").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1.0f);
-
+					
                     eventIndex++;
                     break;
                 }
@@ -411,6 +411,7 @@ public class EventManager : MonoBehaviour
                         GameObject.Find("PlayerFade").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1.0f);
                         GameObject.Find("PlayerFade").gameObject.GetComponent<Player>().freezePlayer = false;
                         GameObject.Find("PlayerFade").gameObject.GetComponent<Player>().freezeJump = false;
+                        GameObject.Find("IndustryContainer").gameObject.SetActiveRecursively(true);
                         GameObject.Find("EarthHas").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 0.0f);
                         GameObject.Find("WithPerception").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 0.0f);
                         GameObject.Find("CanWe").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 0.0f);

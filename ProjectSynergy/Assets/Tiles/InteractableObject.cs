@@ -53,8 +53,7 @@ public class InteractableObject : MonoBehaviour
                 //audio.PlayOneShot(corruptSound);
 				
 				// AD: Instead, call Fabric "Corrupt" event with current class name as parameter.
-				//Fabric.EventManager.Instance.PostEvent("CorruptGrass");
-				Fabric.EventManager.Instance.PostEvent("Corrupt", Fabric.EventAction.SetSwitch, "Alert");
+				Fabric.EventManager.Instance.PostEvent("Corrupt", Fabric.EventAction.SetSwitch, objectType);
 				Fabric.EventManager.Instance.PostEvent("Corrupt");
             }
             gameObject.GetComponent<AnimateSprite>().PlayAnimation("Corrupt", 1);

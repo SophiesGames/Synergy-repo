@@ -132,6 +132,5 @@ public class GameManagerC : MonoBehaviour
         Playtomic.Log.LevelRangedMetric("CorruptedTiles", LevelManager.levelManager.levelDetails, LevelManager.levelManager.corruptedObjects.Count);
         Playtomic.Log.LevelAverageMetric("Time", LevelManager.levelManager.levelDetails, LevelManager.levelManager.levelPlayTime);
         Application.LoadLevel(levelToLoad);
-
     }
 }

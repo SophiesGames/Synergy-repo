@@ -19,6 +19,8 @@ public class MusicManager : MonoBehaviour
     public bool trackNeedsChanged = false;
     [HideInInspector]
     public int newTrackNumber = 0;//Wont play this as its = currentTrackNumber. urlLsit[0] will be blank representing the 1st sonf that comes with the game
+	[HideInInspector]
+	public int currentScene = 0; // Current scene/level number.
     //private int currentTrackNumber = 0;//not set yet
     //public WWW www;
     private int trackNumber = 1;
@@ -64,34 +66,51 @@ public class MusicManager : MonoBehaviour
 
     private void Update()
     {
-        if (audio.isPlaying == false)
-        {
-            trackNumber++;
-            if (trackNumber > 3)
-            {
-                trackNumber = 1;
-            }
-
-            if (trackNumber == 1)
-            {
-                audio.clip = SongOne;
-            }
-            else if (trackNumber == 2)
-            {
-                audio.clip = SongTwo;
-            }
-            else
-            {
-                audio.clip = SongThree;
-            }
+	    // AD: Which level are we on?
+	    currentScene = Application.loadedLevel;
+	    //Debug.Log(currentScene);
+		
+		switch (currentScene)
+		{
+		case 0:
+			Fabric.EventManager.Instance.SetParameter("Simple", "Scene", 0.0f);
+			break;
+		case 1:
+		case 2:
+			Fabric.EventManager.Instance.SetParameter("Simple", "Scene", 6.0f);
+			break;
+		}
 			
-			// AD: Commenting out current audio.
+	    
+		
+        //if (audio.isPlaying == false)
+        //{
+        //    trackNumber++;
+        //    if (trackNumber > 3)
+        //    {
+        //        trackNumber = 1;
+        //    }
+		//
+        //    if (trackNumber == 1)
+        //    {
+        //        audio.clip = SongOne;
+        //    }
+        //    else if (trackNumber == 2)
+        //    {
+        //        audio.clip = SongTwo;
+        //    }
+        //    else
+        //    {
+        //        audio.clip = SongThree;
+        //    }
+			
+		    // AD: Commenting out current audio.
             //audio.Play();
 			
-			// AD: Using Fabric instead.
-			// @todo: Eventually, we will change out tracks here.
-			//Fabric.EventManager.Instance.PostEvent("TestEvent1");
-        }
+		    // AD: Using Fabric instead.
+		    // @todo: Eventually, we will change out tracks here.
+		    //Fabric.EventManager.Instance.PostEvent("TestEvent1");
+        //}
 
         //ChangeTrack();                //the old system with streaming uses event manager and each level to set a newTrackNumber
     }
