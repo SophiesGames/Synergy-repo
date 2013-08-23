@@ -11,32 +11,37 @@
 #(didnt need for me but maybe after  a few versions commited) git reset HEAD
 
 
-
-#Folders
-
-/Library
-/obj
-/Temp
-
-#File Extensions
-/User Preference Files
-
-*.sln
-
-*.csproj
-
-*.pidb
-
+# =============== #
+# Unity generated #
+# =============== #
+Temp/
+Obj/
+UnityGenerated/
+Library/
+ 
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+*.svd
 *.userprefs
-
-*.user
-
+*.csproj
+*.pidb
 *.suo
-
-
+*.sln
+*.DotSettings
+*.user
 *.unityproj
-
-
-#OS Junk
-
+*.booproj
+ 
+# ============ #
+# OS generated #
+# ============ #
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
