@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     private float startPos;
     private AnimateSprite animateSprite;
     private bool isJumping = false;
+	
+	//int currentScene = 0; // Current scene/level number.
 
     private Vector3 originalVelocity;
 
@@ -51,6 +53,13 @@ public class Player : MonoBehaviour
             Movement();
         }
         PlayerAnimate();
+		
+		// @todo: Start music in level 00 once the player starts moving.
+		// But we only want to do this in the very beginning of the game, so probably should go into Game or Music Manager.
+		//currentScene = Application.loadedLevel;
+		//if (velocity.x > 0 && currentScene == 0)
+        //{
+        //}
     }
 
     private void pushObject(ControllerColliderHit hit)

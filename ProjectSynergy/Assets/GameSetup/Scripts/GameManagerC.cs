@@ -127,7 +127,9 @@ public class GameManagerC : MonoBehaviour
 
     public void LoadLevelNumber(int levelToLoad)
     {
-        MusicManager.musicManager.audio.volume = 1.0f; //reset sound to full
+		// AD: Prolly don't need this anymore.
+        //MusicManager.musicManager.audio.volume = 1.0f; //reset sound to full
+		
         PlayerPrefs.SetInt("levelNumber", levelToLoad);
         Playtomic.Log.LevelRangedMetric("CorruptedTiles", LevelManager.levelManager.levelDetails, LevelManager.levelManager.corruptedObjects.Count);
         Playtomic.Log.LevelAverageMetric("Time", LevelManager.levelManager.levelDetails, LevelManager.levelManager.levelPlayTime);

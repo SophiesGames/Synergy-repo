@@ -13,7 +13,7 @@ public class MusicManager : MonoBehaviour
     //public AudioClip SongOne;
     //public AudioClip SongTwo;
     //public AudioClip SongThree;
-    public AudioClip EndCrescendo;
+    //public AudioClip EndCrescendo;
 
     [HideInInspector]
     public bool trackNeedsChanged = false;
@@ -24,6 +24,8 @@ public class MusicManager : MonoBehaviour
 	int currentScene = 0; // Current scene/level number.
     //private int currentTrackNumber = 0;//not set yet
     //public WWW www;
+	
+	// @todo: We can probably get rid of this soon.
     private int trackNumber = 1;
 
     private static MusicManager _musicManager;
@@ -52,9 +54,15 @@ public class MusicManager : MonoBehaviour
     private void Start()
     {
 		// Play music!
+		// Make sure we play the music for the current level.
 		currentScene = Application.loadedLevel;
 		Fabric.EventManager.Instance.PostEvent("MainMusic");
 		Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", currentScene);
+		
+		// Use appropriate mixer setting.
+		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
+		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
+		
 		
 		// AD: Testing Fabric timeline parameters.
 		// @todo: Send proper values here.
@@ -69,17 +77,21 @@ public class MusicManager : MonoBehaviour
 	{
         Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", level);
 		
+		// Switch back to the "Gameplay" mixer preset.
+		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
+		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
+		
 		switch (level)
 		{
 		case 0:
 	        break;
 			
 		case 1:
-			Fabric.EventManager.Instance.PostEvent("Melody1");
+			//Fabric.EventManager.Instance.PostEvent("Melody1");
 			break;
 		
 	    case 2:
-			Fabric.EventManager.Instance.PostEvent("Melody1", Fabric.EventAction.AdvanceSequence);
+			//Fabric.EventManager.Instance.PostEvent("Melody1", Fabric.EventAction.AdvanceSequence);
 			break;
 			
 	    case 3:
@@ -94,8 +106,8 @@ public class MusicManager : MonoBehaviour
 
     public void SetEndMusic()
     {
-        audio.clip = EndCrescendo;
-        audio.Play();
+        //audio.clip = EndCrescendo;
+        //audio.Play();
     }
 
     //private void ChangeTrack()

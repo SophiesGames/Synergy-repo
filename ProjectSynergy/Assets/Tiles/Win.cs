@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 public class Win : MonoBehaviour
 {
+	// @todo: Can remove these after transitioning to Fabric.
     public AudioClip winSound;
     public AudioClip failSound;
+	
     public GameObject greyBox;
     public float rewardTimeSpan = 2.0f;
 	
@@ -44,6 +46,10 @@ public class Win : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
+		// Play "end of level" SFX.
+		// @todo: Come up with a better SFX.
+		Fabric.EventManager.Instance.PostEvent("EndLevel");
+		
         if (Application.loadedLevel == 0 || Application.loadedLevel == 1)
         {
             GameManagerC.gameManager.NextLevel();
@@ -52,14 +58,21 @@ public class Win : MonoBehaviour
 
     private void OnTriggerStay(Collider collider)
     {
-        MusicManager.musicManager.audio.volume = 0.5f;
+		// Change the Fabric mix for the results screen.
+        //MusicManager.musicManager.audio.volume = 0.5f;
+		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Gameplay", null);
+		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Results", null);
 
         if (LevelManager.levelManager.healingFinished == true                           //healing done
             && collider.gameObject.GetComponent<Player>().freezePlayer == false)        //code has not already played before
         {
             collider.gameObject.GetComponent<Player>().freezePlayer = true; //stop from moving
-            audio.clip = winSound;
-            audio.Play();
+			
+			// @todo: Use Fabric & replace SFX.
+            //audio.clip = winSound;
+            //audio.Play();
+			Fabric.EventManager.Instance.PostEvent("ResultScreen");
+			
             FillLists();
             StartCoroutine("HighlightTiles");
         }
@@ -266,6 +279,7 @@ public class Win : MonoBehaviour
 
         if (lastCol < 999)         //there was active corrupt column so Player badness
         {
+			// @todo: Use Fabric & replace SFX.
             audio.clip = failSound;
             audio.Play();
 			
