@@ -1,4 +1,4 @@
-Fabric v2.1.6
+Fabric v2.1.7
 -------------
 
 Fabric extends Unity’s audio functionality and provides a set of high level audio components and editor extensions that allowes the creation of complex and rich audio behaviors.

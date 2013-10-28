@@ -11,14 +11,18 @@ public class InitialiseParameters : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
 	
-	if(Input.GetKeyDown(KeyCode.Alpha1)) 
-	{
-		parameters._delaySamples.Value = 50000;
+	    if(Input.GetKeyDown(KeyCode.Alpha1)) 
+	    {
+		    //parameters._delaySamples.Value = 50000;
+
+            parameters._isMutliplier = true;
+            parameters._volume.Value = 0.5f;
 			
-		Fabric.EventManager.Instance.PostEvent("Simple",Fabric.EventAction.PlaySound, null, gameObject, parameters);
-	}
+		    Fabric.EventManager.Instance.PostEvent("Simple",Fabric.EventAction.PlaySound, null, gameObject, parameters);
+	    }
 	
 	}
 }

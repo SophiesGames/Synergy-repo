@@ -10,17 +10,18 @@ public class MusicManager : MonoBehaviour
 {
     //public List<string> urlList = new List<string>();
     //private AudioClip[] clipList;
-    public AudioClip SongOne;
-    public AudioClip SongTwo;
-    public AudioClip SongThree;
+    //public AudioClip SongOne;
+    //public AudioClip SongTwo;
+    //public AudioClip SongThree;
     public AudioClip EndCrescendo;
 
     [HideInInspector]
     public bool trackNeedsChanged = false;
     [HideInInspector]
     public int newTrackNumber = 0;//Wont play this as its = currentTrackNumber. urlLsit[0] will be blank representing the 1st sonf that comes with the game
-	[HideInInspector]
-	public int currentScene = 0; // Current scene/level number.
+
+	
+	int currentScene = 0; // Current scene/level number.
     //private int currentTrackNumber = 0;//not set yet
     //public WWW www;
     private int trackNumber = 1;
@@ -50,69 +51,45 @@ public class MusicManager : MonoBehaviour
 
     private void Start()
     {
-        //audio.loop = true;
-		
-		// AD: Commenting out current audio.
-        //audio.Play();   //plays the default music to start with.
-		
-		// AD: Using Fabric instead.
-		// @todo: Rename event to something self-explanatory.
-		Fabric.EventManager.Instance.PostEvent("Simple");
+		// Play music!
+		currentScene = Application.loadedLevel;
+		Fabric.EventManager.Instance.PostEvent("MainMusic");
+		Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", currentScene);
 		
 		// AD: Testing Fabric timeline parameters.
 		// @todo: Send proper values here.
-		Fabric.EventManager.Instance.SetParameter("Simple", "Destruction", 0.5f);
+		//Fabric.EventManager.Instance.SetParameter("MainMusic", "Destruction", 0.5f);
     }
+	
+	
+    /**
+	 * When a new level is loaded, switch music.
+	 */
+    void OnLevelWasLoaded(int level)
+	{
+        Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", level);
+		
+		switch (level)
+		{
+		case 0:
+	        break;
+			
+		case 1:
+			Fabric.EventManager.Instance.PostEvent("Melody1");
+			break;
+		
+	    case 2:
+			Fabric.EventManager.Instance.PostEvent("Melody1", Fabric.EventAction.AdvanceSequence);
+			break;
+			
+	    case 3:
+			break;
+		}
+    }
+	
 
     private void Update()
     {
-	    // AD: Which level are we on?
-	    currentScene = Application.loadedLevel;
-	    //Debug.Log(currentScene);
-		
-		switch (currentScene)
-		{
-		case 0:
-			Fabric.EventManager.Instance.SetParameter("Simple", "Scene", 0.0f);
-			break;
-		case 1:
-		case 2:
-			Fabric.EventManager.Instance.SetParameter("Simple", "Scene", 6.0f);
-			break;
-		}
-			
-	    
-		
-        //if (audio.isPlaying == false)
-        //{
-        //    trackNumber++;
-        //    if (trackNumber > 3)
-        //    {
-        //        trackNumber = 1;
-        //    }
-		//
-        //    if (trackNumber == 1)
-        //    {
-        //        audio.clip = SongOne;
-        //    }
-        //    else if (trackNumber == 2)
-        //    {
-        //        audio.clip = SongTwo;
-        //    }
-        //    else
-        //    {
-        //        audio.clip = SongThree;
-        //    }
-			
-		    // AD: Commenting out current audio.
-            //audio.Play();
-			
-		    // AD: Using Fabric instead.
-		    // @todo: Eventually, we will change out tracks here.
-		    //Fabric.EventManager.Instance.PostEvent("TestEvent1");
-        //}
-
-        //ChangeTrack();                //the old system with streaming uses event manager and each level to set a newTrackNumber
     }
 
     public void SetEndMusic()

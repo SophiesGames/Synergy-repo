@@ -47,15 +47,15 @@ public class InteractableObject : MonoBehaviour
     {
         if (isCorrupt == false)
         {
-            if (corruptSound != null)
-            {
+            //if (corruptSound != null)
+            //{
 				// AD: Don't use basic Unity audio.
                 //audio.PlayOneShot(corruptSound);
 				
-				// AD: Instead, call Fabric "Corrupt" event with current class name as parameter.
+				// AD: Call Fabric "Corrupt" event with current class name as parameter.
 				Fabric.EventManager.Instance.PostEvent("Corrupt", Fabric.EventAction.SetSwitch, objectType);
 				Fabric.EventManager.Instance.PostEvent("Corrupt");
-            }
+            //}
             gameObject.GetComponent<AnimateSprite>().PlayAnimation("Corrupt", 1);
             LevelManager.levelManager.nonCorruptedObjects.Remove(gameObject);//take from one lsit
             LevelManager.levelManager.corruptedObjects.Add(gameObject);//and add to the other
@@ -67,13 +67,9 @@ public class InteractableObject : MonoBehaviour
     {
         if (corruptSound != null)
         {
-			// @todo: AD - call Fabric rejuvenate event.
-            //audio.PlayOneShot(rejuvenateSound);
-			
-			// @todo:
-			// AD: Instead, call Fabric "Rejuvenate" event with current class name as parameter.
-			Fabric.EventManager.Instance.PostEvent("Corrupt", Fabric.EventAction.SetSwitch, "Warning");
-			Fabric.EventManager.Instance.PostEvent("Corrupt");
+			// AD: Call Fabric "Rejuvenate" event with current class name as parameter.
+			Fabric.EventManager.Instance.PostEvent("Rejuvenate", Fabric.EventAction.SetSwitch, objectType);
+			Fabric.EventManager.Instance.PostEvent("Rejuvenate");
         }
         AnimateSprite animateSprite = gameObject.GetComponent<AnimateSprite>();
         animateSprite.PlayAnimation("Rejuvenate", 1);

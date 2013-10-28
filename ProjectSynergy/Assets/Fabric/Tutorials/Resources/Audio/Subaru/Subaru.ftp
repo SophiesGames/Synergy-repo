@@ -166,7 +166,7 @@
         <width>0.27518</width>
         <auto_pitch_enabled>1</auto_pitch_enabled>
         <auto_pitch_reference>0.28</auto_pitch_reference>
-        <volume>1</volume>
+        <volume>0.484</volume>
         <loop_mode>0</loop_mode>
         <fade_in_type>2</fade_in_type>
         <fade_out_type>2</fade_out_type>

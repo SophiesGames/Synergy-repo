@@ -590,7 +590,7 @@
 <autopitchreference>0.28</autopitchreference>
 <autopitchatzero>0</autopitchatzero>
 <finetune>0</finetune>
-<volume>1</volume>
+<volume>0.484</volume>
 <fadeintype>2</fadeintype>
 <fadeouttype>2</fadeouttype>
 </sound>

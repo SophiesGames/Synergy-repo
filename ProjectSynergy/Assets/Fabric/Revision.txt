@@ -5,8 +5,158 @@ Copyright (c) Tazman-Audio 2013
 http://www.Tazman-Audio.co.uk
 -------------------------------
 
+Version 2.1.7 (02-09-2013)
+--------------------------
+
+- Fixed DynamicMixer adding multiple preset instances when listening for an event
+- Fixed event override not handling dynamic mixer event actions
+- Fixed RTP parameters not updating correctly with mutliple instances
+- Added drag and drop support for importing audio clips into components
+- Added clear event list and multiple Fabric manager instances warnings
+- Added audio panner support to the event trigger
+- Added "PlayLoopToEnd" option to IntroLoopOutro component
+- Added "show on mixer" option in group component
+- Added RandomComponent weights
+- Use array to iterate children components instead of list
+- Exposed side chain gain to Runtime parameter support
+- Tidy up debug info and code profiler
+- Use better text color in event log viewer
+- Updated documentation
+
+Version 2.1.6r (26-08-2013)
+---------------------------
+
+- Added new AudioPannerFilter effect
+- Added new DialogAudioComponent with language support
+- Updated the import audio clip support to include both audio component types
+- Fixed issue when pausing application with audio components that are already paused
+
+
+Version 2.1.6q (16-08-2013)
+---------------------------
+
+- Added finish playing delegate/event support to component
+- Changed Sequence and IntroOutrLoop components to use the play finish event handle
+- "PlayToEnd" sequence option waits until the component has finished playing before advancing to the next entry
+- Move transition threshold from sequence to fabric manager
+- Refactor the sequence update for pre 4.1 version
+- Fix for dynamic mixer presets not activating on events that haven't received a play event action
+- Fixed "nasty" issue when checking the IEventListener interface to see if its null
+- Removed a number of memory allocations in the event manager and component
+- Removed volume meter check in SetComponentActive function (improves performance)
+- Volume meter now collects audio components instead of audio sources
+- Added option in the event manager to force queue all events
+- Fixed game object set active warnings in 4.1
+- Fixed AssetLoader potential crash when calling unload after the fabric manager game object has been destroyed
+- Tidy up dynamic mixer code
+
+
+Version 2.1.6o (24-07-2013)
+---------------------------
+
+- Added support to locate in the hierarchy all event listeners or event triggers associated with an event
+- Added new IntroLoopOutro component
+- Sequence playilist view now has a dropdown list of all children on each entry making it easier to select a component
+- Fixed live tweaking of volume and pitch group preset parameters
+- Changed GetChildComponents component function to ignore Instances game object if available
+
+
+Version 2.1.6n (24-07-2013)
+---------------------------
+
+- Changed the way events are handled if no active instances are found
+- Fixed SetParameter event action failing to be processed by the timeline component sometimes
+- Fixed event listener override issues
+- Volume and pitch rand properties are shown in dB and Semitones
+- Added  mixer preset multi edit support
+- Can choose to ignore game object on preset event trigger
+- Fix component failing to unresgistered event listeners when is unloaded
+- Removed dynamic mixer update memory allocation
+- Fixed sequence component not pausing
+- Removed old timeline loader code from core
+
+
+Version 2.1.6m (09-07-2013)
+---------------------------
+
+- fixed override event action working with multiple listeners
+- fixed component volume dB display
+- disabled pitch randomisation display in semitones
+- added option to choose if you want to use full path or component name when creating event listeners at runtime
+- added timeline region volume property
+
+
+Version 2.1.6l (07-07-2013)
+---------------------------
+
+- Added "CreateEventListeners" option in fabric manager. Creates event listeners on all components
+- Componentent volume is shown decibels and pitch in semitones
+
+
+Version 2.1.6k (04-07-2013)
+---------------------------
+
+- Added ability to select which event action and properties to override
+- Fixed InitialiseParameter multiplier behaviour
+- Fixed component GetTime() reporting wrong value causing the sequence to play everything at once
+
+
+Version 2.1.6j (01-07-2013)
+---------------------------
+
+- Fixed volume meter not working with random component and fabric manager
+- Fixed null reference error when Virtualisation is enabled and not having an audio listener or main camera present
+- Fixed DSP components not working when audio source pool is active
+- Added support to dynamic mixer preset to be activated and stay active on selected event
+
+
+Version 2.1.6i (24-06-2013)
+---------------------------
+
+- Fixed timeline loader not setting the correct looop mode
+- Fixed timeline pitch curve calculation (IMPORTANT CHANGE)
+- Fix timeline window to be update with the timeline previewer
+
+Version 2.1.6h (21-06-2013)
+---------------------------
+
+- Added advance sequence mode types
+
+
+Version 2.1.6g (20-06-2013)
+---------------------------
+
+- Fixed component preview crashing the editor and leaking objects
+- Fixed multi audio clip not re-importing changed assets
+- Fixed audio component not taking into consideration play scheduled delay when reporting its length
+- Fixed timeline parameter storing its start position
+- Fixed process event issue
+- Disable complete popup dialog when running FdpToFtpConverterTool in command line mode
+
+Version 2.1.6f (27-05-2013)
+---------------------------
+
+- Check if events associated with a game object are active
+- Fixed timeline parameter always reseting to zero at start
+- Added isMultipler flag and support on InitialiseParameters
+- Fixed MultEditAudioClip to set the correct properties
+
+
+Version 2.1.6d (17-05-2013)
+---------------------------
+
+- Added import ftp project file panel
+- Added support to override the event trigger game object
+- Seek parameter is displayed all the time in the RTP window
+- Added random component property in the timeline region editor
+- Audio source enable in audio component is no longer set (removes weirdnesses)
+- RTP manager now uses the audio listener position and not the camera for its distance
+- Ability to choose if an event trigger can be added to the queue (deprecated handleEventsImmediately flag)
+- Fixed small issues when compiling older version (non 4.1)
+
+
 Version 2.1.6 (22-04-2013)
----------------------------------
+---------------------------
 
 - Release with ModularSynth, LoudnessMeter and FdpToFtpConverter tool
 

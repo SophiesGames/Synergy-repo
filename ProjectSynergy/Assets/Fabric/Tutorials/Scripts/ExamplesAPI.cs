@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ExamplesAPI : MonoBehaviour 
 {
@@ -16,7 +17,7 @@ public class ExamplesAPI : MonoBehaviour
 			// This event by default will send the PlaySound EventAction.
 			// The gameObject used is the one that has the FabricManager
 			
-			Fabric.EventManager.Instance.PostEvent("Simple");
+			Fabric.EventManager.Instance.PostEvent("Simple", gameObject);
 			
 		}
 		// Example 2: Posting an event with a gameObject
@@ -59,7 +60,7 @@ public class ExamplesAPI : MonoBehaviour
 		{
 			// The event name must be "DynamicMixer"
 			Fabric.EventManager.Instance.PostEvent ( "DynamicMixer", Fabric.EventAction.RemovePreset, "MuteAll", null ) ;
-		}
+		}       
 		// Example 9: Get component by name, setting volume, querying if component is playing and if not play it
 		else if(Input.GetKeyDown(KeyCode.Alpha9))
 		{
@@ -86,7 +87,7 @@ public class ExamplesAPI : MonoBehaviour
 			Fabric.FabricManager.Instance.UnloadAsset("Audio_SFX");
 		}
 		// Initialise default component parameters (ideal for setting parameters in animation systems) 
-		if(Input.GetKeyDown(KeyCode.C)) 
+		else if(Input.GetKeyDown(KeyCode.C)) 
 		{
 			Fabric.InitialiseParameters parameters = new Fabric.InitialiseParameters();
 			
@@ -94,5 +95,31 @@ public class ExamplesAPI : MonoBehaviour
 				
 			Fabric.EventManager.Instance.PostEvent("Simple",Fabric.EventAction.PlaySound, null, gameObject, parameters);
 		}
-	}
+        // Check if an event is playing
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            if (Fabric.EventManager.Instance.IsEventActive("Simple", gameObject))
+            {
+                Debug.Log("Event Simple is Active");
+            }
+            else
+            {
+                Debug.Log("Event Simple is Inactive");
+            }
+        }
+		else if(Input.GetKeyDown(KeyCode.E))
+		{
+			Fabric.Component[] components = Fabric.FabricManager.Instance.GetComponentsByName("Audio_Simple", gameObject);
+		
+			if(components != null && components.Length> 0)
+			{
+				components[0].Volume = 0.5f;
+				
+				if(components[0].IsPlaying() == true)
+				{
+					Debug.Log("Component is playing");
+				}
+			}
+		}
+    }
 }

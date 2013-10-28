@@ -77,8 +77,8 @@ public class GameManagerC : MonoBehaviour
         Playtomic.Log.View();
 
         DontDestroyOnLoad(this.gameObject);                     //should keep everything (But not children)
-
-        Instantiate(MusicManagerPrefab);//creates the msuic manager. eventManager then handles new tracks on new levels
+		
+		Instantiate(MusicManagerPrefab);//creates the msuic manager. eventManager then handles new tracks on new levels
 
     }
 

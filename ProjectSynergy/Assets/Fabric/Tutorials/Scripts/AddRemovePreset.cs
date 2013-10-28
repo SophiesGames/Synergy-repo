@@ -25,13 +25,13 @@ public class AddRemovePreset : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            //Fabric.GetDynamicMixer.Instance().SwitchPreset("Menu", "MuteAll");
+            Fabric.GetDynamicMixer.Instance().SwitchPreset("Menu", "MuteAll");
             Debug.Log("Switch Preset");
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            //Fabric.GetDynamicMixer.Instance().SwitchPreset("MuteAll", "Menu");
+            Fabric.GetDynamicMixer.Instance().SwitchPreset("MuteAll", "Menu");
             Debug.Log("Switch Preset");
         }
 	}
