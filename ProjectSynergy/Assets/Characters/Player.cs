@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public Vector3 velocity = Vector3.zero;
     [HideInInspector]
     public bool shroomJump = false;
-    [HideInInspector]
+    
     public bool freezePlayer = false;
     [HideInInspector]
     public bool freezeJump = false;

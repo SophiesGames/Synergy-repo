@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class EventManager : MonoBehaviour
 {
     int eventIndex = 1;
+	bool startedMusicFlag = false;
 
     private static EventManager _EventManager;
     public static EventManager eventManager
@@ -54,6 +55,15 @@ public class EventManager : MonoBehaviour
         {
             case 0:
                 {
+					if(startedMusicFlag == false
+						&& GameObject.Find("PlayerFade").gameObject.GetComponent<Player>().freezePlayer == false
+						&& (Input.GetButtonDown("Jump") || Input.GetButtonDown("Horizontal"))
+					)
+					{
+						Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", 1);
+						startedMusicFlag = true;
+			    	}
+			
                     if (PlayerPrefs.GetInt("levelNumber") > 0)
                     {
                         NewOrContinue();
@@ -190,6 +200,8 @@ public class EventManager : MonoBehaviour
     {
         GameObject.Find("PressNReturnGame").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1.0f);
         GameObject.Find("PressSpace").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1.0f);
+		GameObject winFadeGO = GameObject.Find("WinFade");
+		if (winFadeGO!= null) GameObject.Find("WinFade").gameObject.SetActive(false);
         if (Input.GetButtonUp("Jump"))
         {
             GameManagerC.gameManager.LoadLevelNumber(PlayerPrefs.GetInt("levelNumber"));
@@ -203,6 +215,8 @@ public class EventManager : MonoBehaviour
         {
             case 1:
                 {
+			
+					//todo: starting music trigger goes here so it doesnt play on the continue screen
                     GameObject.Find("PlayerFade").gameObject.GetComponent<Player>().freezePlayer = true;
                     GameObject.Find("Advancement").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1.0f);
                     eventIndex++;
