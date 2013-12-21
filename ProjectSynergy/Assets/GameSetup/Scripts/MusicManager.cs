@@ -28,6 +28,10 @@ public class MusicManager : MonoBehaviour
 	// @todo: We can probably get rid of this soon.
     private int trackNumber = 1;
 
+    private float corruptionLevel; // Current level of curruption per level.
+    private int corruptedObjects;  // Number of currently corrupted objects.
+    private int totalObjects;      // Total object on this level (so we can calculate level of corruption).
+
     private static MusicManager _musicManager;
     public static MusicManager musicManager
     {
@@ -66,9 +70,27 @@ public class MusicManager : MonoBehaviour
 		
 		// AD: Testing Fabric timeline parameters.
 		// @todo: Send proper values here.
-		//Fabric.EventManager.Instance.SetParameter("MainMusic", "Destruction", 0.5f);
+        // @todo: Do we need to call this right away?
+        //Fabric.EventManager.Instance.SetParameter("MainMusic", "Corruption", 0.5f);
+
+        // Save the number of total objects on this level.
+        //totalObjects = LevelManager.levelManager.interactableObjects.Count;
+
+        // AD: Check level of corruption every 1 second.
+        // AD: Maybe it's better to check on Update();
+        //InvokeRepeating("CheckCorruption", 0, 1);
     }
 	
+    // Change the music according to current level of destruction.
+    void CheckCorruption() {
+
+        totalObjects = LevelManager.levelManager.interactableObjects.Count;
+        corruptedObjects = LevelManager.levelManager.corruptedObjects.Count;
+        corruptionLevel = Mathf.Round((float)corruptedObjects / (float)totalObjects * 100.0f);
+
+        //Debug.Log(corruptionLevel + "%");
+        Fabric.EventManager.Instance.SetParameter("MainMusic", "Corruption", corruptionLevel);
+    }
 	
     /**
 	 * When a new level is loaded, switch music.
@@ -102,6 +124,8 @@ public class MusicManager : MonoBehaviour
 
     private void Update()
     {
+        // Here we will calculate the level of corruption, and play appropriate music.
+        CheckCorruption();
     }
 
     public void SetEndMusic()

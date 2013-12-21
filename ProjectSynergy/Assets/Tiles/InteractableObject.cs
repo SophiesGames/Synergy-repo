@@ -83,7 +83,8 @@ public class InteractableObject : MonoBehaviour
 
     public void voidRejuvenate()
     {
-        audio.PlayOneShot(rejuvenateSound);
+        // @todo: AD: Play new Rejuvenate sound.
+        //audio.PlayOneShot(rejuvenateSound);
         AnimateSprite animateSprite = gameObject.GetComponent<AnimateSprite>();
         animateSprite.PlayAnimation("voidRejuvenate", 1);
     }

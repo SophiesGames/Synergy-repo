@@ -27,6 +27,9 @@ public class HorizontalHeal : MonoBehaviour
         CreateHealList();
         LevelManager.levelManager.healingFinished = false;
         StartCoroutine("Heal");
+
+        // AD: Call Fabric HealingPlant sound.
+        Fabric.EventManager.Instance.PostEvent("HealingPlant");
     }
 
     private void CreateHealList()
