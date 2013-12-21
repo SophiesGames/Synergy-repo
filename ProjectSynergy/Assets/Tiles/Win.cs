@@ -58,20 +58,21 @@ public class Win : MonoBehaviour
 
     private void OnTriggerStay(Collider collider)
     {
-		// Change the Fabric mix for the results screen.
-        //MusicManager.musicManager.audio.volume = 0.5f;
-		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Gameplay", null);
-		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Results", null);
+		// Change the Fabric mix for the results screen, but not in the tutorial levels.
+        if (Application.loadedLevel > 1) {
+            Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Gameplay", null);
+		    Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Results", null);
+        }
 
         if (LevelManager.levelManager.healingFinished == true                           //healing done
             && collider.gameObject.GetComponent<Player>().freezePlayer == false)        //code has not already played before
         {
             collider.gameObject.GetComponent<Player>().freezePlayer = true; //stop from moving
 			
-			// @todo: Use Fabric & replace SFX.
-            //audio.clip = winSound;
-            //audio.Play();
-			Fabric.EventManager.Instance.PostEvent("ResultScreen");
+			// Play Result Screen music, but make sure it doesn't play in tutorial levels.
+            if (Application.loadedLevel > 1) {
+			    Fabric.EventManager.Instance.PostEvent("ResultScreen");
+            }
 			
             FillLists();
             StartCoroutine("HighlightTiles");
