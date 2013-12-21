@@ -55,14 +55,14 @@ public class EventManager : MonoBehaviour
         {
             case 0:
                 {
-					if(startedMusicFlag == false
-						&& GameObject.Find("PlayerFade").gameObject.GetComponent<Player>().freezePlayer == false
-						&& (Input.GetButtonDown("Jump") || Input.GetButtonDown("Horizontal"))
-					)
-					{
-						Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", 1);
-						startedMusicFlag = true;
-			    	}
+                    //if(startedMusicFlag == false
+                    //    && GameObject.Find("PlayerFade").gameObject.GetComponent<Player>().freezePlayer == false
+                    //    && (Input.GetButtonDown("Jump") || Input.GetButtonDown("Horizontal"))
+                    //)
+                    //{
+                    //    Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", 1);
+                    //    startedMusicFlag = true;
+                    //}
 			
                     if (PlayerPrefs.GetInt("levelNumber") > 0)
                     {
