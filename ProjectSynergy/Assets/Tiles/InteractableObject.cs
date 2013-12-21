@@ -10,7 +10,7 @@ public class InteractableObject : MonoBehaviour
     [HideInInspector]
     public Vector3 worldPosition;
 	[HideInInspector]
-	public string objectType = ""; // AD: What kind of object is this?
+	public string objectType = ""; // AD: What kind of object is this.
 	
     public AudioClip corruptSound;
     public AudioClip rejuvenateSound;
@@ -47,15 +47,10 @@ public class InteractableObject : MonoBehaviour
     {
         if (isCorrupt == false)
         {
-            //if (corruptSound != null)
-            //{
-				// AD: Don't use basic Unity audio.
-                //audio.PlayOneShot(corruptSound);
-				
-				// AD: Call Fabric "Corrupt" event with current class name as parameter.
-				Fabric.EventManager.Instance.PostEvent("Corrupt", Fabric.EventAction.SetSwitch, objectType);
-				Fabric.EventManager.Instance.PostEvent("Corrupt");
-            //}
+            // AD: Call "Corrupt" event with current class name as parameter.
+            //Debug.Log("Corrupt/" + objectType);
+            Fabric.EventManager.Instance.PostEvent("Corrupt/" + objectType);
+
             gameObject.GetComponent<AnimateSprite>().PlayAnimation("Corrupt", 1);
             LevelManager.levelManager.nonCorruptedObjects.Remove(gameObject);//take from one lsit
             LevelManager.levelManager.corruptedObjects.Add(gameObject);//and add to the other
@@ -65,12 +60,10 @@ public class InteractableObject : MonoBehaviour
 
     public void Rejuvenate(int corruptedObjectIndex)
     {
-        if (corruptSound != null)
-        {
-			// AD: Call Fabric "Rejuvenate" event with current class name as parameter.
-			Fabric.EventManager.Instance.PostEvent("Rejuvenate", Fabric.EventAction.SetSwitch, objectType);
-			Fabric.EventManager.Instance.PostEvent("Rejuvenate");
-        }
+        // AD: Call "Heal" event with current class name as parameter.
+        //Debug.Log("Heal/" + objectType);
+        Fabric.EventManager.Instance.PostEvent("Heal/" + objectType);
+
         AnimateSprite animateSprite = gameObject.GetComponent<AnimateSprite>();
         animateSprite.PlayAnimation("Rejuvenate", 1);
         isCorrupt = false;
@@ -83,8 +76,6 @@ public class InteractableObject : MonoBehaviour
 
     public void voidRejuvenate()
     {
-        // @todo: AD: Play new Rejuvenate sound.
-        //audio.PlayOneShot(rejuvenateSound);
         AnimateSprite animateSprite = gameObject.GetComponent<AnimateSprite>();
         animateSprite.PlayAnimation("voidRejuvenate", 1);
     }

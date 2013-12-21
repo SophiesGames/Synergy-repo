@@ -14,6 +14,8 @@ public class Nut : MonoBehaviour
         {
             hasFallen = true;
         }
+
+        // @todo: AD: Perhaps convert this to Fabric?
         if (this.rigidbody.velocity.x != 0 && audio.isPlaying == false)
         {
             audio.Play();
@@ -123,6 +125,10 @@ public class Nut : MonoBehaviour
         GameObject expAnim;
         expAnim = (GameObject)Instantiate(explosionAnimation, transform.position, transform.rotation);
         expAnim.gameObject.GetComponent<AnimateSprite>().PlayAnimation("NutExplosion", 1, true);
+
+        // AD: Call Fabric HealingPlant sound.
+        Fabric.EventManager.Instance.PostEvent("AcornExplode");
+
         Destroy(this.gameObject);
     }
 }

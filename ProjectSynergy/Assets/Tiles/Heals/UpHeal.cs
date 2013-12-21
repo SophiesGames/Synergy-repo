@@ -24,6 +24,9 @@ public class UpHeal : MonoBehaviour
             }
         }
         HealCorruptedObjectsOnly();                                 //heal the corrupted
+
+        // AD: Call Fabric HealingPlant sound.
+        Fabric.EventManager.Instance.PostEvent("HealingPlant");
     }
 
     private void HealCorruptedObjectsOnly()

@@ -66,28 +66,31 @@ public class MusicManager : MonoBehaviour
 		// Use appropriate mixer setting.
 		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
 		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
-		
-		
-		// AD: Testing Fabric timeline parameters.
-		// @todo: Send proper values here.
-        // @todo: Do we need to call this right away?
-        //Fabric.EventManager.Instance.SetParameter("MainMusic", "Corruption", 0.5f);
-
-        // Save the number of total objects on this level.
-        //totalObjects = LevelManager.levelManager.interactableObjects.Count;
-
-        // AD: Check level of corruption every 1 second.
-        // AD: Maybe it's better to check on Update();
-        //InvokeRepeating("CheckCorruption", 0, 1);
     }
 	
     // Change the music according to current level of destruction.
     void CheckCorruption() {
 
-        totalObjects = LevelManager.levelManager.interactableObjects.Count;
-        corruptedObjects = LevelManager.levelManager.corruptedObjects.Count;
-        corruptionLevel = Mathf.Round((float)corruptedObjects / (float)totalObjects * 100.0f);
+        // In the first 2 levels using corruption music is confusing, since the player is just figuring out the game.
+        // So don't use the corruption music in these cases:
+        //     1. In level 1 (3 rocks going up)
+        //     2. In level 2, while the player is still suspended and is reading the text.
+        //        In EventManager.LevelThreeScriptedEvents() looks like it takes 9 seconds before the player is released.
+        if (Application.loadedLevel == 1 || 
+            (Application.loadedLevel == 2 && LevelManager.levelManager.levelPlayTime < 9)) {
+            corruptionLevel = 0;
 
+        }
+
+        // Otherwise, calculate the current percentage of corruption.
+        // (relationship of corrupted objects to the number of total objects.
+        else {
+            totalObjects = LevelManager.levelManager.interactableObjects.Count;
+            corruptedObjects = LevelManager.levelManager.corruptedObjects.Count;
+            corruptionLevel = Mathf.Round((float)corruptedObjects / (float)totalObjects * 100.0f);
+        }
+
+        // Send the corruption parameter to Fabric.
         //Debug.Log(corruptionLevel + "%");
         Fabric.EventManager.Instance.SetParameter("MainMusic", "Corruption", corruptionLevel);
     }
@@ -103,6 +106,7 @@ public class MusicManager : MonoBehaviour
 		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
 		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
 		
+        // @todo: We probably won't need this.
 		switch (level)
 		{
 		case 0:
@@ -130,6 +134,7 @@ public class MusicManager : MonoBehaviour
 
     public void SetEndMusic()
     {
+        // @todo: Probably don't need this either.
         //audio.clip = EndCrescendo;
         //audio.Play();
     }
