@@ -37,31 +37,33 @@ public class Nut : MonoBehaviour
     //if fall through air then enable next function
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log("OnCollisionEnter");
         if (hasFallen == true)
         {
-            //Debug.Log("hasFallen = true");
+            Debug.Log("hasFallen == true");
             if (collision.collider.tag == "Grass")//|| collision.collider.tag == "NutBreaker"
             {
-                //Debug.Log("Grass");
+                Debug.Log("Collider is Grass");
                 LevelManager.levelManager.healingFinished = false;
-                NutLogic(collision);
+                NutActivateExplosion(collision);
             }
             else if (collision.collider.tag == "Rock")//|| collision.collider.tag == "NutBreaker"
             {
-                //Debug.Log("Rock");
+                Debug.Log("Collider is Rock");
                 hasFallen = false;
             }
         }
     }
 
     //if this code proves buggy, it might be that the list is being filled in a function that is lost when it retursn to the main function.
-    private void NutLogic(Collision collision)
+    private void NutActivateExplosion(Collision collision)
     {
         float contactArea;
 
+		//NEW clarification comment: This checks to see if [0] and [1] are == in x as that means they are abve each other.
+		//if so i use the 3rd point [2] instead so i ahve points from different sides of square(i dont check for top or bttom corner)
         if (Mathf.Round(collision.contacts[0].point.x * 10f) / 10f != Mathf.Round(collision.contacts[1].point.x * 10f) / 10f)                                 //stupid statement but the corners the array corrsepond to changes randomly it seems. These numbers msut be rounded to 1 decimal place to ignore tiny differences.
         {
+
             contactArea = collision.contacts[0].point.x - collision.contacts[1].point.x;
         }
         else
@@ -71,11 +73,16 @@ public class Nut : MonoBehaviour
         contactArea = Mathf.Abs(contactArea);                 //avoid negative numbers
         if (contactArea >= 0.41f)                               //this check will only apply to 1 square. the one who should act as the centre point for nut functioality
         {
+			Debug.Log("found a contact area >= 0.41f");
             List<Vector3> affectedSquarePositions = new List<Vector3>();                //Create a lsit of positions that should be checked for healing
             FindAffectedSquares(affectedSquarePositions, collision);
             HealAffectedSquares(affectedSquarePositions);
             NutDestroy();
         }
+		else
+		{
+			Debug.Log("contactArea:" + contactArea + " which is not bigger than 0.41f so ignoring this as a square that only had minor contact");
+		}
     }
 
     private void FindAffectedSquares(List<Vector3> affectedSquarePositions, Collision collision)
