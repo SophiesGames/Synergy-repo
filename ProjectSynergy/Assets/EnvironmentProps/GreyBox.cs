@@ -14,18 +14,25 @@ public class GreyBox : MonoBehaviour
 
     private void FastStart()
     {
-        UpdatePicture();
+		//all faded out
+		//fade in base don lives
+//		this.transform.FindChild("Petal1").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 0);
+//		this.transform.FindChild("Petal2").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 0);
+//		this.transform.FindChild("Petal3").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 0);
+//		this.transform.FindChild("Petal4").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 0);
+		
+		UpdatePicture();
         if (this.GetComponent<AnimateRGB>() != null) //if its a box with a square artound it ie not the last ending flower
         {
-            this.GetComponent<AnimateRGB>().SetRGBA(4, 0.3f);//0.58f   <put this number back instead of 0, to get green box
-            this.transform.FindChild("Petal1").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1);
-            this.transform.FindChild("Petal2").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1);
-            this.transform.FindChild("Petal3").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1);
-            this.transform.FindChild("Petal4").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1);
-            this.transform.FindChild("PlantHead").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1);
+            //this.GetComponent<AnimateRGB>().SetRGBA(4, 0.3f);//0.58f   <put this number back instead of 0, to get green box
+            //this.transform.FindChild("Petal1").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1);
+//            this.transform.FindChild("Petal2").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1);
+//            this.transform.FindChild("Petal3").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1);
+//            this.transform.FindChild("Petal4").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1);
+//            this.transform.FindChild("PlantHead").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1);
             //int percentComplete = (Application.loadedLevel * 5);//gets out of 100% by times by 5
             GUIText progressText = this.transform.FindChild("YourProgression").gameObject.guiText;
-            progressText.text = Application.loadedLevel + "/20";
+            progressText.text = Application.loadedLevel + "/21";
         }
     }
 
@@ -43,17 +50,26 @@ public class GreyBox : MonoBehaviour
             {
                 if (petalToCorrupt == 4)  //if its the last one
                 {
-                    this.transform.FindChild("PlantHead").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 0.0f, 0.1f);
+                    //this.transform.FindChild("PlantHead").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 0.0f, 0.1f);
                     this.transform.FindChild("TooCorrupt").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1.0f);
                 }
 
-                string Petal = "Petal" + petalToCorrupt;
+                string petal = "Petal" + petalToCorrupt;
+				string nextPetal = "Petal" + (petalToCorrupt + 1);
                 this.transform.FindChild("FlowerGlow").GetComponent<AnimateSprite>().PlayAnimation("DarkCloud", 1);
-                this.gameObject.transform.FindChild(Petal).gameObject.GetComponent<AnimateSprite>().PlayAnimation("PetalDie", 1);
+
+				//aniamte version
+                //this.gameObject.transform.FindChild(petal).gameObject.GetComponent<AnimateSprite>().PlayAnimation("PetalDie", 1);
+
+				//fade version
+				this.gameObject.transform.FindChild(nextPetal).gameObject.SetActive(true);
+				this.transform.FindChild(nextPetal).gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1);
+				this.gameObject.transform.FindChild(petal).gameObject.GetComponent<AnimateRGB>().SetRGBA(4,0f,0.5f);
+
                 petalToCorrupt = 0; //reset it
                 startTimer = 0;
             }
-            else if (winGlow)    //win aniamtion dleay??
+            else if (winGlow)    //win aniamtion delay??
             {
                 this.transform.FindChild("FlowerGlow").gameObject.GetComponent<AnimateSprite>().PlayAnimation("Glow", 1);
                 winGlow = false;
@@ -80,18 +96,24 @@ public class GreyBox : MonoBehaviour
                 {
                     case 2:
                         Petal = "Petal" + 3;
-                        this.gameObject.transform.FindChild(Petal).gameObject.GetComponent<AnimateSprite>().PlayAnimation("PetalRegrow", 1);
+                        //this.gameObject.transform.FindChild(Petal).gameObject.GetComponent<AnimateSprite>().PlayAnimation("PetalRegrow", 1);
+					this.gameObject.transform.FindChild(Petal).gameObject.SetActive(true);	
+					this.gameObject.transform.FindChild(Petal).gameObject.GetComponent<AnimateRGB>().SetRGBA(4,1f,0.5f);
                         break;
 
                     case 3:
                         Petal = "Petal" + 2;
-                        this.gameObject.transform.FindChild(Petal).gameObject.GetComponent<AnimateSprite>().PlayAnimation("PetalRegrow", 1);
-                        break;
+                        //this.gameObject.transform.FindChild(Petal).gameObject.GetComponent<AnimateSprite>().PlayAnimation("PetalRegrow", 1);
+					this.gameObject.transform.FindChild(Petal).gameObject.SetActive(true);	
+					this.gameObject.transform.FindChild(Petal).gameObject.GetComponent<AnimateRGB>().SetRGBA(4,1f,0.5f);    
+					break;
 
                     case 4:
                         Petal = "Petal" + 1;
-                        this.gameObject.transform.FindChild(Petal).gameObject.GetComponent<AnimateSprite>().PlayAnimation("PetalRegrow", 1);
-                        break;
+                        //this.gameObject.transform.FindChild(Petal).gameObject.GetComponent<AnimateSprite>().PlayAnimation("PetalRegrow", 1);
+					this.gameObject.transform.FindChild(Petal).gameObject.SetActive(true);
+					this.gameObject.transform.FindChild(Petal).gameObject.GetComponent<AnimateRGB>().SetRGBA(4,1f,0.5f);    
+					break;
                 }
             }
         }
@@ -143,25 +165,53 @@ public class GreyBox : MonoBehaviour
 
             case 1:
                 {
-                    this.gameObject.transform.FindChild("Petal1").gameObject.GetComponent<AnimateSprite>().SetFrameSet(93);
-                    this.gameObject.transform.FindChild("Petal2").gameObject.GetComponent<AnimateSprite>().SetFrameSet(93);
-                    this.gameObject.transform.FindChild("Petal3").gameObject.GetComponent<AnimateSprite>().SetFrameSet(93);
-                }
-                break;
+//                    this.gameObject.transform.FindChild("Petal1").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,1,0.5)
+//                    this.gameObject.transform.FindChild("Petal2").gameObject.GetComponent<AnimateSprite>().SetFrameSet(93);
+//                    this.gameObject.transform.FindChild("Petal3").gameObject.GetComponent<AnimateSprite>().SetFrameSet(93);
+
+//					this.gameObject.transform.FindChild("Petal1").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,0f,0.5f);
+//					this.gameObject.transform.FindChild("Petal2").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,0f,0.5f);
+//					this.gameObject.transform.FindChild("Petal3").GetComponent<AnimateRGB>().SetRGBA(4,0f,0.5f);
+
+			this.gameObject.transform.FindChild("Petal4").GetComponent<AnimateRGB>().SetRGBA(4,1f,0.5f);
+					
+				}
+			break;
 
             case 2:
                 {
-                    this.gameObject.transform.FindChild("Petal1").gameObject.GetComponent<AnimateSprite>().SetFrameSet(93);
-                    this.gameObject.transform.FindChild("Petal2").gameObject.GetComponent<AnimateSprite>().SetFrameSet(93);
-                }
-                break;
+//                    this.gameObject.transform.FindChild("Petal1").gameObject.GetComponent<AnimateSprite>().SetFrameSet(93);
+//                    this.gameObject.transform.FindChild("Petal2").gameObject.GetComponent<AnimateSprite>().SetFrameSet(93);
+//					this.gameObject.transform.FindChild("Petal1").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,0f,0.5f);
+//					this.gameObject.transform.FindChild("Petal2").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,0f,0.5f);
+
+			this.gameObject.transform.FindChild("Petal3").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,1f,0.5f);
+			//this.gameObject.transform.FindChild("Petal4").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,1f,0.5f);
+		}
+			break;
 
             case 3:
                 {
-                    this.gameObject.transform.FindChild("Petal1").gameObject.GetComponent<AnimateSprite>().SetFrameSet(93);
+                    //this.gameObject.transform.FindChild("Petal1").gameObject.GetComponent<AnimateSprite>().SetFrameSet(93);
+					//this.gameObject.transform.FindChild("Petal1").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,0f,0.5f);
+
+			this.gameObject.transform.FindChild("Petal2").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,1f,0.5f);
+			//this.gameObject.transform.FindChild("Petal3").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,1f,0.5f);
+			//this.gameObject.transform.FindChild("Petal4").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,1f,0.5f);
                 }
                 break;
-        }
-    }
-
+			//new
+		case 4:
+		{
+			//this.gameObject.transform.FindChild("Petal1").gameObject.GetComponent<AnimateSprite>().SetFrameSet(93);
+			//this.gameObject.transform.FindChild("Petal1").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,0f,0.5f);
+			this.gameObject.transform.FindChild("Petal1").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,1f,0.5f);
+			//this.gameObject.transform.FindChild("Petal2").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,1f,4f);
+			//this.gameObject.transform.FindChild("Petal3").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,1f,4f);
+			//this.gameObject.transform.FindChild("Petal4").gameObject.GetComponent<AnimateRGB>().SetRGBA(4,1f,4f);
+		}
+			break;
+		}
+	}
+	
 }
