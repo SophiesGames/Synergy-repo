@@ -205,6 +205,10 @@ public class EventManager : MonoBehaviour
         if (Input.GetButtonUp("Jump"))
         {
             GameManagerC.gameManager.LoadLevelNumber(PlayerPrefs.GetInt("levelNumber"));
+
+            // And also start the music...
+            Fabric.EventManager.Instance.PostEvent("MainMusic");
+            Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", PlayerPrefs.GetInt("levelNumber")); 
         }
         //n key for next level code in game manager
     }
@@ -215,8 +219,10 @@ public class EventManager : MonoBehaviour
         {
             case 1:
                 {
-			
-					//todo: starting music trigger goes here so it doesnt play on the continue screen
+                    // Start music here so it doesn't play on the "Continue" screen.
+                    Fabric.EventManager.Instance.PostEvent("MainMusic");
+                    Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", 0); 
+					
                     GameObject.Find("PlayerFade").gameObject.GetComponent<Player>().freezePlayer = true;
                     GameObject.Find("Advancement").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1.0f);
                     eventIndex++;

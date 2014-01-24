@@ -60,12 +60,20 @@ public class MusicManager : MonoBehaviour
 		// Play music!
 		// Make sure we play the music for the current level.
 		currentScene = Application.loadedLevel;
-		Fabric.EventManager.Instance.PostEvent("MainMusic");
-		Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", currentScene);
-		
-		// Use appropriate mixer setting.
-		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
-		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
+
+        // Allow the Event Manager handle the intro screen music.
+        if (currentScene == 0) {
+            // Do nothing.
+        }
+        else {
+
+    		Fabric.EventManager.Instance.PostEvent("MainMusic");
+    		Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", currentScene);
+        }
+
+        // Use appropriate mixer setting.
+    	Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
+    	Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
     }
 	
     // Change the music according to current level of destruction.
