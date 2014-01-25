@@ -270,6 +270,7 @@ public class EventManager : MonoBehaviour
 						{
 								if (LevelManager.levelManager.levelPlayTime > 13) {
 										GameObject.Find ("YearnsFor").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
+				GameObject.Find ("WinFade").transform.Find("GoalParticles").GetComponent<ParticleSystem>().Play();
 										GameObject.Find ("WinLogic").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
 										//play sound for player
 										//play human animation
@@ -310,6 +311,7 @@ public class EventManager : MonoBehaviour
 				switch (eventIndex) {
 				case 1:
 						{
+								GameObject.Find ("PlayerFade").transform.Find("PlayerParticleSystem").GetComponent<ParticleSystem>().Play();
 								GameObject.Find ("PlayerFade").gameObject.GetComponent<Player> ().freezePlayer = true;
 								GameObject.Find ("PlayerFade").gameObject.GetComponent<Player> ().freezeJump = true;
 								GameObject.Find ("TheEnviron").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
@@ -369,6 +371,7 @@ public class EventManager : MonoBehaviour
 				switch (eventIndex) {
 				case 1:
 						{
+								GameObject.Find ("PlayerFade").transform.Find("PlayerParticleSystem").GetComponent<ParticleSystem>().Play();
 								GameObject.Find ("PlayerFade").gameObject.GetComponent<Player> ().freezePlayer = true;
 								GameObject.Find ("PlayerFade").gameObject.GetComponent<Player> ().freezeJump = true;
 								GameObject.Find ("EarthHas").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
