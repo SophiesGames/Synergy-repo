@@ -85,7 +85,7 @@ public class GreyBox : MonoBehaviour
         {
             text = (GameObject)Instantiate(PressJump);
             text.transform.parent = this.transform;
-            text.transform.localPosition = new Vector3(-0.68f, -0.4786608f, -4f);
+            text.transform.localPosition = new Vector3(-0.6759f, -0.4786608f, -4f);
             winGlow = true;
             if (petalsLeft < 4)     //regrow petals
             {
@@ -129,7 +129,7 @@ public class GreyBox : MonoBehaviour
         {
             text = (GameObject)Instantiate(PressJump);
             text.transform.parent = this.transform;
-            text.transform.localPosition = new Vector3(-0.68f, -0.4786608f, -4f);
+            text.transform.localPosition = new Vector3(-0.6759f, -0.4786608f, -4f);
 
             switch (petalsLeft)
             {
