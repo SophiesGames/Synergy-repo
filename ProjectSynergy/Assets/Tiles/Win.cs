@@ -280,9 +280,8 @@ public class Win : MonoBehaviour
 
         if (lastCol < 999)         //there was active corrupt column so Player badness
         {
-			// @todo: Use Fabric & replace SFX.
-            audio.clip = failSound;
-            audio.Play();
+			// Play corrupted sound.
+            Fabric.EventManager.Instance.PostEvent("Corrupt/Grass");
 			
 			//turn the corrupt ones black
             foreach (GameObject obj in LevelManager.levelManager.corruptedObjects)
