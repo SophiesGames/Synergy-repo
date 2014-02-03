@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class InteractableObject : MonoBehaviour
 {
-    public bool startCorrupt = false;
+	public bool canStartCorrupt = false;
+    public bool startsCorrupt = false;
     [HideInInspector]
     public bool isCorrupt = false;
     [HideInInspector]
@@ -21,7 +22,7 @@ public class InteractableObject : MonoBehaviour
 		// but we could also override the function in child classes.
 		objectType = this.GetType().Name;
 		
-        if (startCorrupt)
+        if (startsCorrupt)
         {
             gameObject.GetComponent<AnimateSprite>().SetFrameSet("idleCorrupt");
             LevelManager.levelManager.nonCorruptedObjects.Remove(gameObject);//take from one lsit

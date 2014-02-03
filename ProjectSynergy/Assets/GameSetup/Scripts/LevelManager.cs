@@ -6,6 +6,9 @@ using System.Collections.Generic;
 /// </summary>
 public class LevelManager : MonoBehaviour
 {
+
+	private int tileDeathPerMissingLive = 3;
+
     private static LevelManager _LevelManager;
     public static LevelManager levelManager
     {
@@ -106,11 +109,42 @@ public class LevelManager : MonoBehaviour
     public bool healingFinished = true;
     private void Awake()
     {
+		List<InteractableObject> CanStartCorruptList = new List<InteractableObject> ();
         foreach (InteractableObject obj in GameObject.FindObjectsOfType(typeof(InteractableObject)))
         {
             _InteractableObjects.Add(obj.gameObject);                   //fills a list full of all the interactive objects
             _NonCorruptedObjects.Add(obj.gameObject);                  //Fills the list at start full of all the objects. Ones that start corrupted will be taken of in Start() on Interactable object after.
+
+			if (obj.canStartCorrupt)
+			{
+				CanStartCorruptList.Add(obj);
+			}
         }
+
+		int levelsCorrupt = 4 - PlayerPrefs.GetInt("lives");
+		int numbStartingCorrupt = levelsCorrupt * tileDeathPerMissingLive;
+
+
+		//FUCK YOU MONODEVELOPE!!!
+		//TODO: @ DK test code running nicely.
+		//sets random tiles as corrupt if mareked as safe in editor and if previous levels were done incorrectly
+//		while(numbStartingCorrupt > 0)
+//		{
+//			//fail gracefully -its not the end fo the world if eveyr level not done right
+//			if (CanStartCorruptList.Count <=0)
+//			{
+//				//TODO: put in developer log
+//				break;
+//			}
+//			int i = Random.Range(0, (CanStartCorruptList.Count-1));
+//			InteractableObject corruptableObj = CanStartCorruptList[i];
+//
+//			CanStartCorruptList.RemoveAt(i);
+//			numbStartingCorrupt--;
+//			corruptableObj.Corrupt();
+//		}
+
+
         EventManager.eventManager.enabled = true;         //creates event manager
         StartLevelTimer();
     }
