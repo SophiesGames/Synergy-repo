@@ -69,13 +69,13 @@ public class Win : MonoBehaviour
         {
             collider.gameObject.GetComponent<Player>().freezePlayer = true; //stop from moving
 			
-			// Play Result Screen music, but make sure it doesn't play in tutorial levels.
-            if (Application.loadedLevel > 1) {
-			    Fabric.EventManager.Instance.PostEvent("ResultScreen");
-            }
-			
-            FillLists();
+			FillLists();
             StartCoroutine("HighlightTiles");
+
+            // Play Result Screen music, but make sure it doesn't play in tutorial levels.
+            if (Application.loadedLevel > 1) {
+                Fabric.EventManager.Instance.PostEvent("ResultScreen");
+            }
         }
     }
 
@@ -297,8 +297,16 @@ public class Win : MonoBehaviour
                 glow.GetComponent<AnimateSprite>().PlayAnimation("ReverseGlow", 1);
             }
 			petalsRemaining = PlayerPrefs.GetInt("lives")-1;
+
 			CallGreyBox();
         }
+
+        // @todo: Play different result screen sounds based on petalsRemaining. Use the switch component.
+        //string switchParameter = "Lives" + petalsRemaining.ToString();
+        //Debug.Log(switchParameter);
+        //Fabric.EventManager.Instance.PostEvent("ResultLives", Fabric.EventAction.SetSwitch, switchParameter);
+        //Fabric.EventManager.Instance.PostEvent("ResultLives");
+
         yield return null;
     }
 	

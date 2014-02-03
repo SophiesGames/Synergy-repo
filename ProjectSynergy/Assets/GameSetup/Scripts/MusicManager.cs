@@ -84,6 +84,8 @@ public class MusicManager : MonoBehaviour
     void OnLevelWasLoaded(int level)
 	{
         HandleMusic();
+
+        //Debug.Log(PlayerPrefs.GetInt("lives"));
     }
 
     /**
@@ -125,6 +127,7 @@ public class MusicManager : MonoBehaviour
         Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", currentScene);
         
         // Switch back to the "Gameplay" mixer preset.
+        // @todo: Try to use SwitchPreset here instead.
         Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
         Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
     }
