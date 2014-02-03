@@ -8,26 +8,16 @@ using System.Collections.Generic;
 /// </summary>
 public class MusicManager : MonoBehaviour
 {
-    //public List<string> urlList = new List<string>();
-    //private AudioClip[] clipList;
-    //public AudioClip SongOne;
-    //public AudioClip SongTwo;
-    //public AudioClip SongThree;
-    //public AudioClip EndCrescendo;
 
     [HideInInspector]
     public bool trackNeedsChanged = false;
     [HideInInspector]
-    public int newTrackNumber = 0;//Wont play this as its = currentTrackNumber. urlLsit[0] will be blank representing the 1st sonf that comes with the game
+    public int newTrackNumber = 0; //Wont play this as its = currentTrackNumber. urlLsit[0] will be blank representing the 1st sonf that comes with the game
 
-	
+    private float introMusicTimer;
 	int currentScene = 0; // Current scene/level number.
-    //private int currentTrackNumber = 0;//not set yet
-    //public WWW www;
+    int savedPlayerLevel = 0; // Saved player level.
 	
-	// @todo: We can probably get rid of this soon.
-    private int trackNumber = 1;
-
     private float corruptionLevel; // Current level of curruption per level.
     private int corruptedObjects;  // Number of currently corrupted objects.
     private int totalObjects;      // Total object on this level (so we can calculate level of corruption).
@@ -39,7 +29,7 @@ public class MusicManager : MonoBehaviour
         {
             if (_musicManager == null)
             {
-                Debug.Log("error");
+                Debug.Log("Music manager prefab not assigned.");
             }
             return _musicManager;
         }
@@ -47,7 +37,6 @@ public class MusicManager : MonoBehaviour
 
     private void Awake()
     {
-        //clipList = new AudioClip[urlList.Count];
         if (_musicManager == null)
         {
             _musicManager = this;
@@ -57,26 +46,12 @@ public class MusicManager : MonoBehaviour
 
     private void Start()
     {
-		// Play music!
-		// Make sure we play the music for the current level.
-		currentScene = Application.loadedLevel;
-
-        // Allow the Event Manager handle the intro screen music.
-        if (currentScene == 0) {
-            // Do nothing.
-        }
-        else {
-
-    		Fabric.EventManager.Instance.PostEvent("MainMusic");
-    		Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", currentScene);
-        }
-
-        // Use appropriate mixer setting.
-    	Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
-    	Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
+        HandleMusic();
     }
 	
-    // Change the music according to current level of destruction.
+    /**
+     * Changes the music according to current level of corruption.
+     */
     void CheckCorruption() {
 
         // In the first 2 levels using corruption music is confusing, since the player is just figuring out the game.
@@ -108,29 +83,50 @@ public class MusicManager : MonoBehaviour
 	 */
     void OnLevelWasLoaded(int level)
 	{
-        Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", level);
-		
-		// Switch back to the "Gameplay" mixer preset.
-		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
-		Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
-		
-        // @todo: We probably won't need this.
-		switch (level)
-		{
-		case 0:
-	        break;
-			
-		case 1:
-			//Fabric.EventManager.Instance.PostEvent("Melody1");
-			break;
-		
-	    case 2:
-			//Fabric.EventManager.Instance.PostEvent("Melody1", Fabric.EventAction.AdvanceSequence);
-			break;
-			
-	    case 3:
-			break;
-		}
+        HandleMusic();
+    }
+
+    /**
+     * Meat and potatoes of the MusicManager.
+     */
+    private void HandleMusic() {
+
+        // Which level are we on?
+        currentScene = Application.loadedLevel;
+
+        // Does the player have any saved level?
+        savedPlayerLevel = PlayerPrefs.GetInt ("levelNumber");
+
+        switch (currentScene)
+        {
+        case 0:
+            Fabric.EventManager.Instance.PostEvent("Stop/MainMusic");
+            if (savedPlayerLevel > 0) {
+                // Do nothing. This screen should be silent.
+            }
+            else {
+                // Play intro music.
+                Fabric.EventManager.Instance.PostEvent ("IntroMusic");
+            }
+            
+            break;
+            
+        case 1:
+            // On the first level, play music.
+            Fabric.EventManager.Instance.PostEvent("Stop/IntroMusic");
+            Fabric.EventManager.Instance.PostEvent("MainMusic");
+            break;
+            
+        default:
+            break;
+        }
+
+        // Play music for the current level.
+        Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", currentScene);
+        
+        // Switch back to the "Gameplay" mixer preset.
+        Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
+        Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
     }
 	
 
@@ -138,43 +134,19 @@ public class MusicManager : MonoBehaviour
     {
         // Here we will calculate the level of corruption, and play appropriate music.
         CheckCorruption();
+
+        // Intro Music is a separate event in Fabric, and we will call it every 30 seconds.
+        if (currentScene == 0) {
+            introMusicTimer += Time.deltaTime;
+            if (introMusicTimer > 30) {
+                introMusicTimer = 0;
+                Fabric.EventManager.Instance.PostEvent ("IntroMusic");
+            }
+        }
     }
 
     public void SetEndMusic()
     {
-        // @todo: Probably don't need this either.
-        //audio.clip = EndCrescendo;
-        //audio.Play();
+        //
     }
-
-    //private void ChangeTrack()
-    //{
-    //    if (clipList[newTrackNumber] == null) //if the game has been started half way and nothing has told the new track to load
-    //    {
-    //        StartTrackDownload(newTrackNumber); //start loading that new track and play it as soon as possible.
-    //    }
-    //    //if the track nees to be changed, the current loop is at the end and the next song is done streaming
-    //    if (currentTrackNumber != newTrackNumber && clipList[newTrackNumber].isReadyToPlay)
-    //    {
-    //        audio.clip = clipList[newTrackNumber];
-    //        audio.Play();
-    //        currentTrackNumber = newTrackNumber;
-    //        StartNextTrackDownload();
-    //    }
-    //}
-
-    //private void StartNextTrackDownload()
-    //{
-    //    int nextTrackNumber = currentTrackNumber + 1;
-    //    StartTrackDownload(nextTrackNumber);
-    //}
-
-    //public void StartTrackDownload(int i)
-    //{
-    //    if (i < urlList.Count)
-    //    {
-    //        www = new WWW(urlList[i]);  //CHECKOUT FOR COUROUTINE WWW class INFO TO STOP CRASHES http://answers.unity3d.com/questions/239591/unity-webplayer-and-www-object.html
-    //        clipList[i] = www.GetAudioClip(false, false);
-    //    }
-    //}
 }
