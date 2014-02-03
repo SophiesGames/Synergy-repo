@@ -10,9 +10,7 @@ public class EventManager : MonoBehaviour
 		int eventIndex = 1;
 		bool startedMusicFlag = false;
 
-        private float introMusicTimer;
-
-		private static EventManager _EventManager;
+        private static EventManager _EventManager;
 
 		public static EventManager eventManager {
 				get {
@@ -210,27 +208,13 @@ public class EventManager : MonoBehaviour
 
 		private void LevelOneScriptedEvents ()
         {
-            
-                // Intro Music is a separate event in Fabric, and we will call it every 30 seconds.
-                introMusicTimer += Time.deltaTime;
-                if (introMusicTimer > 30) {
-                    introMusicTimer = 0;
-                    Fabric.EventManager.Instance.PostEvent ("IntroMusic");
-                }
-
-
-				switch (eventIndex) {
+            switch (eventIndex) {
 				case 1:
 						{
 								GameObject.Find ("PlayerFade").gameObject.GetComponent<Player> ().freezePlayer = true;
 
 								if (LevelManager.levelManager.levelPlayTime > 1) {
                                         GameObject.Find ("Advancement").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
-
-                                        // Start music here so it doesn't play on the "Continue" screen.
-                                        //Fabric.EventManager.Instance.SetParameter ("MainMusic", "Scene", 0);
-                                        Fabric.EventManager.Instance.PostEvent ("IntroMusic");
-
 										eventIndex++;
 								}
 								break;
@@ -283,7 +267,7 @@ public class EventManager : MonoBehaviour
 						{
 								if (LevelManager.levelManager.levelPlayTime > 13) {
 										GameObject.Find ("YearnsFor").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
-				GameObject.Find ("WinFade").transform.Find("GoalParticles").GetComponent<ParticleSystem>().Play();
+				                        GameObject.Find ("WinFade").transform.Find("GoalParticles").GetComponent<ParticleSystem>().Play();
 										GameObject.Find ("WinLogic").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
 										//play sound for player
 										//play human animation
