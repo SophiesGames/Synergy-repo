@@ -24,14 +24,14 @@ public class InteractableObject : MonoBehaviour
 		
         if (startsCorrupt)
         {
-            gameObject.GetComponent<AnimateSprite>().SetFrameSet("idleCorrupt");
-            LevelManager.levelManager.nonCorruptedObjects.Remove(gameObject);//take from one lsit
-            LevelManager.levelManager.corruptedObjects.Add(gameObject);//and add to the other
-            isCorrupt = true;
+			gameObject.GetComponent<AnimateSprite>().SetFrameSet("idleCorrupt");
+			LevelManager.levelManager.nonCorruptedObjects.Remove(gameObject);//take from one lsit
+			LevelManager.levelManager.corruptedObjects.Add(gameObject);//and add to the other
+			isCorrupt = true;
         }
     }
-
-    private void OnTriggerEnter(Collider collider)
+	
+	private void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == "Player")
         {

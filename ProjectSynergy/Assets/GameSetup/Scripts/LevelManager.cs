@@ -124,25 +124,21 @@ public class LevelManager : MonoBehaviour
 		int levelsCorrupt = 4 - PlayerPrefs.GetInt("lives");
 		int numbStartingCorrupt = levelsCorrupt * tileDeathPerMissingLive;
 
+		//if there are more to corrup than what is tagged tehn play safe and make them equal
+		if (numbStartingCorrupt > CanStartCorruptList.Count) 
+		{
+			numbStartingCorrupt = CanStartCorruptList.Count; 
+			//TODO: developer logs this issue
+		}
 
-		//FUCK YOU MONODEVELOPE!!!
-		//TODO: @ DK test code running nicely.
 		//sets random tiles as corrupt if mareked as safe in editor and if previous levels were done incorrectly
-//		while(numbStartingCorrupt > 0)
-//		{
-//			//fail gracefully -its not the end fo the world if eveyr level not done right
-//			if (CanStartCorruptList.Count <=0)
-//			{
-//				//TODO: put in developer log
-//				break;
-//			}
-//			int i = Random.Range(0, (CanStartCorruptList.Count-1));
-//			InteractableObject corruptableObj = CanStartCorruptList[i];
-//
-//			CanStartCorruptList.RemoveAt(i);
-//			numbStartingCorrupt--;
-//			corruptableObj.Corrupt();
-//		}
+		for (int i = 1; i < numbStartingCorrupt; i++)
+		{
+
+			numbStartingCorrupt--;
+			//tell it to corrupt on new object created becasue the lsit lost reference. (other way around casues issues becasue 
+			CanStartCorruptList[i].startsCorrupt = true;
+		}
 
 
         EventManager.eventManager.enabled = true;         //creates event manager
