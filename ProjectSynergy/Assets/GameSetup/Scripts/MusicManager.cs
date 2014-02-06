@@ -124,6 +124,7 @@ public class MusicManager : MonoBehaviour
         }
 
         // Play music for the current level.
+        //Fabric.EventManager.Instance.PostEvent("MainMusic"); // @todo: This is temporary.
         Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", currentScene);
         
         // Switch back to the "Gameplay" mixer preset.
