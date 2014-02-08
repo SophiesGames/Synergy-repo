@@ -62,7 +62,6 @@ public class MusicManager : MonoBehaviour
         if (Application.loadedLevel == 1 || 
             (Application.loadedLevel == 2 && LevelManager.levelManager.levelPlayTime < 9)) {
             corruptionLevel = 0;
-
         }
 
         // Otherwise, calculate the current percentage of corruption.
@@ -84,8 +83,6 @@ public class MusicManager : MonoBehaviour
     void OnLevelWasLoaded(int level)
 	{
         HandleMusic();
-
-        //Debug.Log(PlayerPrefs.GetInt("lives"));
     }
 
     /**
@@ -124,13 +121,15 @@ public class MusicManager : MonoBehaviour
         }
 
         // Play music for the current level.
-        //Fabric.EventManager.Instance.PostEvent("MainMusic"); // @todo: This is temporary.
+        Fabric.EventManager.Instance.PostEvent("MainMusic"); // @todo: This is temporary.
         Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", currentScene);
         
         // Switch back to the "Gameplay" mixer preset.
         // @todo: Try to use SwitchPreset here instead.
-        Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
-        Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
+        //Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
+        //Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
+        Fabric.EventManager.Instance.PostEvent("Stop/Results");
+        Fabric.GetDynamicMixer.Instance().SwitchPreset("Results", "Gameplay");
     }
 	
 

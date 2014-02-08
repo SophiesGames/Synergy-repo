@@ -72,12 +72,39 @@ public class Win : MonoBehaviour
 			FillLists();
             StartCoroutine("HighlightTiles");
 
-            // Play Result Screen music, but make sure it doesn't play in tutorial levels.
-            if (Application.loadedLevel > 1) {
-                Fabric.EventManager.Instance.PostEvent("ResultScreen");
-            }
+			PlayEndLevelMusic();
         }
     }
+
+	/**
+	 * Play the appropriate end level music and sound effects.
+	 */
+	private void PlayEndLevelMusic() {
+
+		// Make sure it doesn't play in tutorial levels.
+		if (Application.loadedLevel > 1) {
+
+			// Play the common End Level sound.
+			Fabric.EventManager.Instance.PostEvent("ResultScreen");
+
+			// Figure out the appropriate soundscape for End Level, based on current lives.
+			int corruptedObjects = LevelManager.levelManager.corruptedObjects.Count;
+			int currentLives = PlayerPrefs.GetInt("lives");
+			int newLives = 0;
+			if (corruptedObjects == 0) {
+				newLives = currentLives + 1;
+			} else {
+				newLives = currentLives - 1;
+			}
+			
+			if (newLives < 0) { newLives = 0; }
+			if (newLives > 4) { newLives = 4; }
+
+			string switchParameter = "Lives" + newLives.ToString();
+			Fabric.EventManager.Instance.PostEvent("ResultLives", Fabric.EventAction.SetSwitch, switchParameter);
+			Fabric.EventManager.Instance.PostEvent("ResultLives");
+		}
+	}
 
     private void FillLists()
     {
