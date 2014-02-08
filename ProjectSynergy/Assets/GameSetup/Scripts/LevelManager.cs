@@ -107,9 +107,12 @@ public class LevelManager : MonoBehaviour
     }
 
     public bool healingFinished = true;
-    private void Awake()
+
+	
+	List<InteractableObject> CanStartCorruptList = new List<InteractableObject> ();
+
+	private void Awake()
     {
-		List<InteractableObject> CanStartCorruptList = new List<InteractableObject> ();
         foreach (InteractableObject obj in GameObject.FindObjectsOfType(typeof(InteractableObject)))
         {
             _InteractableObjects.Add(obj.gameObject);                   //fills a list full of all the interactive objects
@@ -121,6 +124,14 @@ public class LevelManager : MonoBehaviour
 			}
         }
 
+        EventManager.eventManager.enabled = true;         //creates event manager
+        StartLevelTimer();
+    }
+
+	//use the start fucntion so it can tell grass to corrupt which tells teh levelmanager to do stuff.
+	//by start the level amanger already exists so it should work
+	private void Start()
+	{
 		int levelsCorrupt = 4 - PlayerPrefs.GetInt("lives");
 		int numbStartingCorrupt = levelsCorrupt * tileDeathPerMissingLive;
 
@@ -134,18 +145,14 @@ public class LevelManager : MonoBehaviour
 		//sets random tiles as corrupt if mareked as safe in editor and if previous levels were done incorrectly
 		for (int i = 1; i < numbStartingCorrupt; i++)
 		{
-
 			numbStartingCorrupt--;
 			//tell it to corrupt on new object created becasue the lsit lost reference. (other way around casues issues becasue 
-			CanStartCorruptList[i].startsCorrupt = true;
+			CanStartCorruptList[i].StartsCorrupt();
 		}
 
-
-        EventManager.eventManager.enabled = true;         //creates event manager
-        StartLevelTimer();
-    }
-
-    public void StartLevelTimer()
+	}
+		
+	public void StartLevelTimer()
     {
         timeAtLevelStart = (int)Time.realtimeSinceStartup;
     }
@@ -175,7 +182,5 @@ public class LevelManager : MonoBehaviour
 
         playerPosY = Screen.height - playerPosY;				//sets y the right way up
 
-        Playtomic.Log.Heatmap(LevelManager.levelManager.levelDetails, "Movement " + GameManagerC.gameManager.userID, (long)playerPosX, (long)playerPosY);
-        Playtomic.Log.ForceSend();
     }
 }

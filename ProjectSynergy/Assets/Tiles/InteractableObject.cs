@@ -21,15 +21,25 @@ public class InteractableObject : MonoBehaviour
 		// AD: Assign object type. Grab it from class name, 
 		// but we could also override the function in child classes.
 		objectType = this.GetType().Name;
-		
-        if (startsCorrupt)
-        {
+
+		if (this.GetType() == typeof(Flower))
+		{
+			int d = 44;
+		}
+		if (startsCorrupt) 
+		{
+			StartsCorrupt();
+				}
+
+    }
+
+	public void StartsCorrupt()
+	{
 			gameObject.GetComponent<AnimateSprite>().SetFrameSet("idleCorrupt");
 			LevelManager.levelManager.nonCorruptedObjects.Remove(gameObject);//take from one lsit
 			LevelManager.levelManager.corruptedObjects.Add(gameObject);//and add to the other
 			isCorrupt = true;
-        }
-    }
+	}
 	
 	private void OnTriggerEnter(Collider collider)
     {
