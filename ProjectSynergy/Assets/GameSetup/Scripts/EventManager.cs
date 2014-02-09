@@ -8,7 +8,6 @@ using System.Collections.Generic;
 public class EventManager : MonoBehaviour
 {
 		int eventIndex = 1;
-		bool startedMusicFlag = false;
 
         private static EventManager _EventManager;
 
@@ -51,15 +50,6 @@ public class EventManager : MonoBehaviour
 				switch (Application.loadedLevel) {
 				case 0:
 						{
-								//if(startedMusicFlag == false
-								//    && GameObject.Find("PlayerFade").gameObject.GetComponent<Player>().freezePlayer == false
-								//    && (Input.GetButtonDown("Jump") || Input.GetButtonDown("Horizontal"))
-								//)
-								//{
-								//    Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", 1);
-								//    startedMusicFlag = true;
-								//}
-			
 								if (PlayerPrefs.GetInt ("levelNumber") > 0) {
 										NewOrContinue ();
 								} else {
@@ -81,111 +71,8 @@ public class EventManager : MonoBehaviour
 								break;
 						}
 
-				case 3:
-						{
-								MusicManager.musicManager.newTrackNumber = 1;//will start playing this song and load next song.
-								break;
-						}
-				case 4:
-						{
-								MusicManager.musicManager.newTrackNumber = 1;//if the player starts fro thei level amke sure its on correct song.
-								break;
-						}
-
-				case 5:
-						{
-								MusicManager.musicManager.newTrackNumber = 2;
-								break;
-						}
-
-				case 6:
-						{
-								MusicManager.musicManager.newTrackNumber = 2;
-								break;
-						}
-
-				case 7:
-						{
-								MusicManager.musicManager.newTrackNumber = 3;
-								break;
-						}
-
-				case 8:
-						{
-								MusicManager.musicManager.newTrackNumber = 3;
-								break;
-						}
-
-				case 9:
-						{
-								MusicManager.musicManager.newTrackNumber = 4;
-								break;
-						}
-
-				case 10:
-						{
-								MusicManager.musicManager.newTrackNumber = 4;
-								break;
-						}
-
-				case 11:
-						{
-								MusicManager.musicManager.newTrackNumber = 5;
-								break;
-						}
-
-				case 12:
-						{
-								MusicManager.musicManager.newTrackNumber = 5;
-								break;
-						}
-
-				case 13:
-						{
-								MusicManager.musicManager.newTrackNumber = 6;
-								break;
-						}
-				case 14:
-						{
-								MusicManager.musicManager.newTrackNumber = 6;
-								break;
-						}
-
-				case 15:
-						{
-								MusicManager.musicManager.newTrackNumber = 7;
-								break;
-						}
-
-				case 16:
-						{
-								MusicManager.musicManager.newTrackNumber = 7;
-								break;
-						}
-
-				case 17:
-						{
-								MusicManager.musicManager.newTrackNumber = 8;
-								break;
-						}
-
-				case 18:
-						{
-								MusicManager.musicManager.newTrackNumber = 8;
-								break;
-						}
-
-				case 19:
-						{
-								MusicManager.musicManager.newTrackNumber = 9;
-								break;
-						}
-
-				case 20:
-						{
-								MusicManager.musicManager.newTrackNumber = 10;
-								break;
-						}
+				default:
+						break;
 				}
 		}
 
@@ -200,6 +87,7 @@ public class EventManager : MonoBehaviour
 						GameManagerC.gameManager.LoadLevelNumber (PlayerPrefs.GetInt ("levelNumber"));
 
 						// And also start the music...
+						//Debug.Log ("Continue...");
 						Fabric.EventManager.Instance.PostEvent ("MainMusic");
 						Fabric.EventManager.Instance.SetParameter ("MainMusic", "Scene", PlayerPrefs.GetInt ("levelNumber")); 
 				}

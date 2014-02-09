@@ -11,8 +11,6 @@ public class MusicManager : MonoBehaviour
 
     [HideInInspector]
     public bool trackNeedsChanged = false;
-    [HideInInspector]
-    public int newTrackNumber = 0; //Wont play this as its = currentTrackNumber. urlLsit[0] will be blank representing the 1st sonf that comes with the game
 
     private float introMusicTimer;
 	int currentScene = 0; // Current scene/level number.
@@ -83,6 +81,9 @@ public class MusicManager : MonoBehaviour
     void OnLevelWasLoaded(int level)
 	{
         HandleMusic();
+
+		// @temp: Never fail, hahaha!
+		//PlayerPrefs.SetInt("lives", 4);
     }
 
     /**
@@ -99,7 +100,7 @@ public class MusicManager : MonoBehaviour
         switch (currentScene)
         {
         case 0:
-            Fabric.EventManager.Instance.PostEvent("Stop/MainMusic");
+			//Debug.Log("Case 0");
             if (savedPlayerLevel > 0) {
                 // Do nothing. This screen should be silent.
             }
@@ -107,10 +108,11 @@ public class MusicManager : MonoBehaviour
                 // Play intro music.
                 Fabric.EventManager.Instance.PostEvent ("IntroMusic");
             }
-            
+			Fabric.EventManager.Instance.PostEvent("Stop/MainMusic");
             break;
             
         case 1:
+			//Debug.Log("Case 1");
             // On the first level, play music.
             Fabric.EventManager.Instance.PostEvent("Stop/IntroMusic");
             Fabric.EventManager.Instance.PostEvent("MainMusic");
@@ -121,15 +123,21 @@ public class MusicManager : MonoBehaviour
         }
 
         // Play music for the current level.
-        Fabric.EventManager.Instance.PostEvent("MainMusic"); // @todo: This is temporary.
+		// Do not restart music between the first 2 levels, so it sounds smoother.
+        //Debug.Log ("Current scene: " + currentScene);
+		if (currentScene > 2) {
+
+			// @todo: Bring this back once Fabric issue is solved.
+       		//Fabric.EventManager.Instance.PostEvent("MainMusic"); 
+		}
         Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", currentScene);
         
         // Switch back to the "Gameplay" mixer preset.
         // @todo: Try to use SwitchPreset here instead.
         //Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
         //Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
-        Fabric.EventManager.Instance.PostEvent("Stop/Results");
         Fabric.GetDynamicMixer.Instance().SwitchPreset("Results", "Gameplay");
+		Fabric.EventManager.Instance.PostEvent("Stop/Results");
     }
 	
 
