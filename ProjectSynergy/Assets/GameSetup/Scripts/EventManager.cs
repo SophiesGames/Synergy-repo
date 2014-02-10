@@ -46,7 +46,6 @@ public class EventManager : MonoBehaviour
 
 		private void LevelEvents ()
 		{
-				// @todo: We can probably get rid of this soon.
 				switch (Application.loadedLevel) {
 				case 0:
 						{

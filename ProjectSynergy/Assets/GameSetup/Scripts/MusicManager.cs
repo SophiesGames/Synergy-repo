@@ -12,13 +12,14 @@ public class MusicManager : MonoBehaviour
     [HideInInspector]
     public bool trackNeedsChanged = false;
 
-    private float introMusicTimer;
+    private float levelTimer;
 	int currentScene = 0; // Current scene/level number.
     int savedPlayerLevel = 0; // Saved player level.
 	
     private float corruptionLevel; // Current level of curruption per level.
     private int corruptedObjects;  // Number of currently corrupted objects.
     private int totalObjects;      // Total object on this level (so we can calculate level of corruption).
+	private bool playedFlourish = false;
 
     private static MusicManager _musicManager;
     public static MusicManager musicManager
@@ -82,8 +83,12 @@ public class MusicManager : MonoBehaviour
 	{
         HandleMusic();
 
+		levelTimer = 0;
+
 		// @temp: Never fail, hahaha!
-		//PlayerPrefs.SetInt("lives", 4);
+		//if (PlayerPrefs.GetInt ("lives") == 1) {
+		//	PlayerPrefs.SetInt("lives", 4);
+		//}
     }
 
     /**
@@ -123,21 +128,21 @@ public class MusicManager : MonoBehaviour
         }
 
         // Play music for the current level.
-		// Do not restart music between the first 2 levels, so it sounds smoother.
+		// Do not restart music (or change mixer preset) between the first 2 levels, so it sounds smoother.
         //Debug.Log ("Current scene: " + currentScene);
 		if (currentScene > 2) {
 
 			// @todo: Bring this back once Fabric issue is solved.
        		//Fabric.EventManager.Instance.PostEvent("MainMusic"); 
+
+			// Switch back to the "Gameplay" mixer preset.
+			// @todo: Try to use SwitchPreset here instead.
+			//Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
+			//Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
+			Fabric.GetDynamicMixer.Instance().SwitchPreset("Results", "Gameplay");
+			Fabric.EventManager.Instance.PostEvent("Stop/Results");
 		}
         Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", currentScene);
-        
-        // Switch back to the "Gameplay" mixer preset.
-        // @todo: Try to use SwitchPreset here instead.
-        //Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
-        //Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
-        Fabric.GetDynamicMixer.Instance().SwitchPreset("Results", "Gameplay");
-		Fabric.EventManager.Instance.PostEvent("Stop/Results");
     }
 	
 
@@ -148,12 +153,21 @@ public class MusicManager : MonoBehaviour
 
         // Intro Music is a separate event in Fabric, and we will call it every 30 seconds.
         if (currentScene == 0) {
-            introMusicTimer += Time.deltaTime;
-            if (introMusicTimer > 30) {
-                introMusicTimer = 0;
+			levelTimer += Time.deltaTime;
+			if (levelTimer > 30) {
+				levelTimer = 0;
                 Fabric.EventManager.Instance.PostEvent ("IntroMusic");
             }
         }
+
+		// Play sound flourish on the word Synergy.
+		if (currentScene == 2) {
+			levelTimer += Time.deltaTime;
+			if (levelTimer > 10 && playedFlourish == false) {
+				Fabric.EventManager.Instance.PostEvent ("Flourish");
+				playedFlourish = true;
+			}
+		}
     }
 
     public void SetEndMusic()
