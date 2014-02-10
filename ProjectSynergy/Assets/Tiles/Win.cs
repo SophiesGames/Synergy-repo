@@ -60,8 +60,8 @@ public class Win : MonoBehaviour
     {
 		// Change the Fabric mix for the results screen, but not in the tutorial levels.
         if (Application.loadedLevel > 1) {
-            Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Gameplay", null);
-		    Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Results", null);
+            //Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Gameplay", null);
+		    //Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Results", null);
         }
 
         if (LevelManager.levelManager.healingFinished == true                           //healing done
@@ -103,6 +103,8 @@ public class Win : MonoBehaviour
 			string switchParameter = "Lives" + newLives.ToString();
 			Fabric.EventManager.Instance.PostEvent("ResultLives", Fabric.EventAction.SetSwitch, switchParameter);
 			Fabric.EventManager.Instance.PostEvent("ResultLives");
+			//Fabric.EventManager.Instance.PostEvent("Stop/MainMusic");
+			Fabric.EventManager.Instance.PostEvent("MainMusic",  Fabric.EventAction.StopSound);
 		}
 	}
 

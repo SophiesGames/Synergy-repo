@@ -7,6 +7,7 @@ public class Nut : MonoBehaviour
     public GameObject explosionAnimation;
     private bool hasFallen = false;
     private Vector3 growthPosition = new Vector3(0, 0, 0);
+	private bool dragging = false;
 
     private void Update()
     {
@@ -16,13 +17,17 @@ public class Nut : MonoBehaviour
         }
 
         // @todo: AD: Perhaps convert this to Fabric?
-        if (this.rigidbody.velocity.x != 0 && audio.isPlaying == false)
+        if (this.rigidbody.velocity.x != 0 && dragging == false)
         {
-            audio.Play();
+            //audio.Play();
+			Fabric.EventManager.Instance.PostEvent("AcornDrag");
+			dragging = true;
         }
-        else if (this.rigidbody.velocity.x == 0)
+        else if (this.rigidbody.velocity.x == 0 || hasFallen == true)
         {
-            audio.Stop();
+            //audio.Stop();
+			Fabric.EventManager.Instance.PostEvent("AcornDrag",  Fabric.EventAction.StopSound);
+			dragging = false;
         }
         //if (this.rigidbody.velocity.x < 0 && this.transform.localScale.x > 0)
         //{

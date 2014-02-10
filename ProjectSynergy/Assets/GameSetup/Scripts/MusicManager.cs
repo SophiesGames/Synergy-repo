@@ -132,14 +132,21 @@ public class MusicManager : MonoBehaviour
         //Debug.Log ("Current scene: " + currentScene);
 		if (currentScene > 2) {
 
-			// @todo: Bring this back once Fabric issue is solved.
-       		//Fabric.EventManager.Instance.PostEvent("MainMusic"); 
+			//Fabric.EventManager.Instance.PostEvent("MusicAdvance", Fabric.EventAction.ResetSequence);
+			Fabric.EventManager.Instance.PostEvent("MainMusic");
+			//Fabric.EventManager.Instance.PostEvent("MainMusic",  Fabric.EventAction.UnpauseSound);
+			//Fabric.EventManager.Instance.PostEvent("MusicAdvance",  Fabric.EventAction.AdvanceSequence);
+
+			//if (currentScene%2 == 0) {
+			//	Debug.Log("Even level!");
+			//	Fabric.EventManager.Instance.PostEvent("MusicAdvance",  Fabric.EventAction.AdvanceSequence);
+			//}
 
 			// Switch back to the "Gameplay" mixer preset.
 			// @todo: Try to use SwitchPreset here instead.
 			//Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.RemovePreset, "Results", null);
 			//Fabric.EventManager.Instance.PostEvent("DynamicMixer", Fabric.EventAction.AddPreset, "Gameplay", null);
-			Fabric.GetDynamicMixer.Instance().SwitchPreset("Results", "Gameplay");
+			//Fabric.GetDynamicMixer.Instance().SwitchPreset("Results", "Gameplay");
 			Fabric.EventManager.Instance.PostEvent("Stop/Results");
 		}
         Fabric.EventManager.Instance.SetParameter("MainMusic", "Scene", currentScene);
