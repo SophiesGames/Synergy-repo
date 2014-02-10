@@ -103,8 +103,8 @@ public class Win : MonoBehaviour
 			string switchParameter = "Lives" + newLives.ToString();
 			Fabric.EventManager.Instance.PostEvent("ResultLives", Fabric.EventAction.SetSwitch, switchParameter);
 			Fabric.EventManager.Instance.PostEvent("ResultLives");
-			//Fabric.EventManager.Instance.PostEvent("Stop/MainMusic");
-			Fabric.EventManager.Instance.PostEvent("MainMusic",  Fabric.EventAction.StopSound);
+			Fabric.EventManager.Instance.PostEvent("Stop/MainMusic");
+			//Fabric.EventManager.Instance.PostEvent("MainMusic",  Fabric.EventAction.StopSound);
 		}
 	}
 

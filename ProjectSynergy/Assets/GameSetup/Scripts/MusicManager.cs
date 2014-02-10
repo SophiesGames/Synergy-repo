@@ -86,9 +86,9 @@ public class MusicManager : MonoBehaviour
 		levelTimer = 0;
 
 		// @temp: Never fail, hahaha!
-		//if (PlayerPrefs.GetInt ("lives") == 1) {
-		//	PlayerPrefs.SetInt("lives", 4);
-		//}
+		if (PlayerPrefs.GetInt ("lives") == 1) {
+			PlayerPrefs.SetInt("lives", 4);
+		}
     }
 
     /**
@@ -133,7 +133,7 @@ public class MusicManager : MonoBehaviour
 		if (currentScene > 2) {
 
 			//Fabric.EventManager.Instance.PostEvent("MusicAdvance", Fabric.EventAction.ResetSequence);
-			Fabric.EventManager.Instance.PostEvent("MainMusic");
+			Fabric.EventManager.Instance.PostEvent("MainMusic"); 
 			//Fabric.EventManager.Instance.PostEvent("MainMusic",  Fabric.EventAction.UnpauseSound);
 			//Fabric.EventManager.Instance.PostEvent("MusicAdvance",  Fabric.EventAction.AdvanceSequence);
 
