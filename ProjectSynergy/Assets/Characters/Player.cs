@@ -180,6 +180,8 @@ public class Player : MonoBehaviour
         }
         else
         {
+			//Debug.Log ("Walking");
+			//Fabric.EventManager.Instance.PostEvent ("Footsteps");
             if (pollenatedPlantName == "")
             {
                 animateSprite.PlayAnimation("Walk");
