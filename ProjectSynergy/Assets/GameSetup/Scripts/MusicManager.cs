@@ -85,7 +85,7 @@ public class MusicManager : MonoBehaviour
 
 		levelTimer = 0;
 
-		// @temp: Never fail, hahaha!
+		// @temp: Never fail, hahaha! 
 		//if (PlayerPrefs.GetInt ("lives") == 1) {
 		//	PlayerPrefs.SetInt("lives", 4);
 		//}
