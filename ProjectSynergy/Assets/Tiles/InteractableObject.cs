@@ -16,6 +16,13 @@ public class InteractableObject : MonoBehaviour
     public AudioClip corruptSound;
     public AudioClip rejuvenateSound;
 
+	private void Awake()
+	{
+		//make sure levelmanager already exists. SImple calling something on it should be enough to force ti to get made here
+		if (LevelManager.levelManager.nonCorruptedObjects != null) {
+				}
+		}
+
     private void Start()
     {
 		// AD: Assign object type. Grab it from class name, 

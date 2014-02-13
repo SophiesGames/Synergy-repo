@@ -117,7 +117,10 @@ public class LevelManager : MonoBehaviour
         {
             _InteractableObjects.Add(obj.gameObject);                   //fills a list full of all the interactive objects
             _NonCorruptedObjects.Add(obj.gameObject);                  //Fills the list at start full of all the objects. Ones that start corrupted will be taken of in Start() on Interactable object after.
-
+			if (obj.GetType() == typeof(Flower))
+			{
+				int d = 44;
+			}
 			if (obj.canStartCorrupt)
 			{
 				CanStartCorruptList.Add(obj);
@@ -145,6 +148,11 @@ public class LevelManager : MonoBehaviour
 		//sets random tiles as corrupt if mareked as safe in editor and if previous levels were done incorrectly
 		for (int i = 1; i < numbStartingCorrupt; i++)
 		{
+			if (CanStartCorruptList[i].GetType() == typeof(Flower))
+			{
+				int d = 44;
+			}
+
 			numbStartingCorrupt--;
 			//tell it to corrupt on new object created becasue the lsit lost reference. (other way around casues issues becasue 
 			CanStartCorruptList[i].StartsCorrupt();
