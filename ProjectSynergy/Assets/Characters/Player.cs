@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     private float startPos;
     private AnimateSprite animateSprite;
     private bool isJumping = false;
+	private bool isWalking = false;
 	
 	//int currentScene = 0; // Current scene/level number.
 
@@ -169,6 +170,12 @@ public class Player : MonoBehaviour
         ////Animate  idle
         if (velocity.x == 0 || freezePlayer == true)
         {
+			//Debug.Log("Idle");
+			//if (isWalking == true) {
+			//	Fabric.EventManager.Instance.PostEvent("Footsteps",  Fabric.EventAction.StopSound);
+			//	isWalking = false;
+			//}
+
             if (pollenatedPlantName == "")
             {
                 animateSprite.PlayAnimation("Idle");
@@ -180,6 +187,12 @@ public class Player : MonoBehaviour
         }
         else
         {
+			//Debug.Log ("Walking");
+			//if (isWalking == false) {
+			//	Fabric.EventManager.Instance.PostEvent ("Footsteps");
+			//	isWalking = true;
+			//}
+
             if (pollenatedPlantName == "")
             {
                 animateSprite.PlayAnimation("Walk");

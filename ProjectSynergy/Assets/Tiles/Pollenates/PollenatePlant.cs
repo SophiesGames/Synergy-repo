@@ -21,8 +21,10 @@ public class PollenatePlant : MonoBehaviour
             {
                 if (player.pollenatedPlantName == "")                                   //if it has a no name, it has not visited another plant
                 {
-                    audio.PlayOneShot(PollenExplodeSFX);
                     //play sound
+					//audio.PlayOneShot(PollenExplodeSFX);
+					Fabric.EventManager.Instance.PostEvent("Pollen/Grab"); 
+
                     animation.PlayAnimation("PollenExplode", 1);
                     player.pollenatedPlantName = gameObject.transform.parent.name;                                      //set the nametag so player knows whose pollen is attached
                     //make player covered in seed
@@ -36,9 +38,12 @@ public class PollenatePlant : MonoBehaviour
                 {
 					player.transform.Find("PollenParticles").GetComponent<ParticleSystem>().Stop();
 					player.transform.Find("PlayerParticleSystem").GetComponent<ParticleSystem>().Play();
-                    audio.PlayOneShot(RootGrowSFX);
-                    //play sound
-                    LevelManager.levelManager.healingFinished = false;
+                    
+					//play sound
+					//audio.PlayOneShot(RootGrowSFX);
+					Fabric.EventManager.Instance.PostEvent("Pollen/Drop");
+
+					LevelManager.levelManager.healingFinished = false;
                     animation.PlayAnimation("SuckPollen", 1, true);
                     player.pollenatedPlantName = "";
                     //make player NOT covered in seed

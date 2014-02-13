@@ -5,6 +5,102 @@ Copyright (c) Tazman-Audio 2013
 http://www.Tazman-Audio.co.uk
 -------------------------------
 
+
+Version 2.1.7m (03-11-2013)
+---------------------------
+
+- Added support to copy/paste Fabric component properties when editor is playing
+- Added sound definition folder support to FdpToFtpConverter
+- Fixed previewer issue when setting switch component properties
+- Fixed potential null reference exception in timeline layer
+
+
+Version 2.1.7l (27-11-2013)
+---------------------------
+
+- Changed AudioSplineEditor to use OnSceneGUI and Handles
+- Fixed SamplePlayer null reference errors
+- Fixed Timeline issue showing layers and parameters for all instances
+- Enable WavReader to decode data (skips them for now)
+
+
+Version 2.1.7k (20-11-2013)
+---------------------------
+
+- Add all components to global component table
+- Added new  Destroy function called when component gets unloaded
+- Fixed AudioSpline issues with resolution and serialising spline points
+- Removed sample player reference to audio clip
+- Added drag and drop support to sampler manager
+
+
+Version 2.1.7j (01-11-2013)
+---------------------------
+
+- Added new AudioSpline extension
+- Fixed parent properties not updating correctly on first frame introducing an audio glitch
+- Added loop region support to sample player component
+- Added core audio component editor support
+
+
+Version 2.1.7i (24-10-2013)
+---------------------------
+
+- Added support to allow offline creating (i.e baking) component instances to improve load times
+- Added panner filter to allow multichannel gain control on the sample player component
+- Added new StopAll event action
+- Changed behaviour of StopSound event action so it will ONLY stop instances associated with a game object
+- Fixed issue with audio component not updating inherited properties correctly at start
+
+
+Version 2.1.7g (14-10-2013)
+---------------------------
+
+- Fixed audio component not checking the correct
+- Fixed issue when enabling Virtualisation and adding events to retry queue
+- Fixed issue when calling stopping a component that is already stopped
+- Change the way Fabric and Event Managers handle Instance and IsInitialised functions
+- Added new SampleManager and SamplePlayer component
+- Added flag in UnloadAsset function to ingore Unity's Resources.UnloadUnusedAssets call
+
+
+Version 2.1.7f (26-09-2013)
+---------------------------
+
+- Added new WWW audio component
+- Added new asset bundle audio component
+- Added ability to set Side Chain when a Component is active
+- Added dynamic mixer preset activation mode
+- Fixed issue with Component reporting active/isplaying wrongly causing stealing behavior to not work correctly
+- Fixed Timeline regions not playing correctly
+- Fixed fabric manager IsInitialised high performance usage when a hierarchy is not present
+- Fixed component previewer issues
+- Fixed language window not saving changes
+- Fixed possible crash when creating component instance with unset event listeners
+- Fixed switch component not switching correctly when playing multiple instances of the same game object
+- Fixed VolumeMeter crash when used in an audio component
+- Changed InterpolateParameter set target to ignore multiple calls on the same target value
+
+
+Version 2.1.7c (11-09-2013)
+---------------------------
+
+- Fixed previewer null reference exceptions
+- Fixed audio source pool failing to play issue
+
+Version 2.1.7c (09-09-2013)
+---------------------------
+
+- Added new Previewer with multiple session support
+- Added auto group component update option in dynamic mixer group reset (i.e. removes/adds group components automatically)
+- Fixed audio source pool failing to play issue
+- Fixed issue with AudioComponent keeping instances active when fading out
+- Fixed Sequence component StopInternal crash
+- Fixed AudioComponent failing to set its base name
+- Fixed component not updating properties when is set to active causing small audio chunks to be audible
+- Fixed errors when compiling for Unity 3.5
+
+
 Version 2.1.7 (02-09-2013)
 --------------------------
 
