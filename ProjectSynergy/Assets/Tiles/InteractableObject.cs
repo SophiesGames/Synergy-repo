@@ -15,7 +15,8 @@ public class InteractableObject : MonoBehaviour
 	
     public AudioClip corruptSound;
     public AudioClip rejuvenateSound;
-
+	[HideInInspector]
+	public bool started = false;
 	private void Awake()
 	{
 		//make sure levelmanager already exists. SImple calling something on it should be enough to force ti to get made here
@@ -36,8 +37,8 @@ public class InteractableObject : MonoBehaviour
 		if (startsCorrupt) 
 		{
 			StartsCorrupt();
-				}
-
+		}
+		started = true;
     }
 
 	public void StartsCorrupt()

@@ -146,16 +146,23 @@ public class LevelManager : MonoBehaviour
 		}
 
 		//sets random tiles as corrupt if mareked as safe in editor and if previous levels were done incorrectly
-		for (int i = 1; i < numbStartingCorrupt; i++)
+		for (int i = 0; i < numbStartingCorrupt; i++)
 		{
 			if (CanStartCorruptList[i].GetType() == typeof(Flower))
 			{
 				int d = 44;
 			}
 
-			numbStartingCorrupt--;
+			//numbStartingCorrupt--;
+			if (CanStartCorruptList[i].started)
+			{
 			//tell it to corrupt on new object created becasue the lsit lost reference. (other way around casues issues becasue 
 			CanStartCorruptList[i].StartsCorrupt();
+			}
+			else
+			{
+				CanStartCorruptList[i].startsCorrupt = true;
+			}
 		}
 
 	}
