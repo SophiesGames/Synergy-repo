@@ -30,10 +30,10 @@ public class InteractableObject : MonoBehaviour
 		// but we could also override the function in child classes.
 		objectType = this.GetType().Name;
 
-		if (this.GetType() == typeof(Flower))
-		{
-			int d = 44;
-		}
+//		if (this.GetType() == typeof(Flower))
+//		{
+//			int d = 44;
+//		}
 		if (startsCorrupt) 
 		{
 			StartsCorrupt();

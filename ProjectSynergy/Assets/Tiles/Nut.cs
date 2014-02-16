@@ -27,7 +27,7 @@ public class Nut : MonoBehaviour
         {
             //audio.Stop();
 			Fabric.EventManager.Instance.PostEvent("AcornDrag",  Fabric.EventAction.StopSound);
-			dragging = false;
+			//dragging = false;
         }
         //if (this.rigidbody.velocity.x < 0 && this.transform.localScale.x > 0)
         //{
