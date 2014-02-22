@@ -5,6 +5,9 @@ public class GreyBox : MonoBehaviour
 {
     public GameObject PressJump;
     public GameObject PressN;
+	public GameObject Failed;
+	public GameObject Succeeded;
+
     private GameObject text;
     public float delayBeforeAnimation = 1;
 
@@ -86,6 +89,15 @@ public class GreyBox : MonoBehaviour
             text = (GameObject)Instantiate(PressJump);
             text.transform.parent = this.transform;
             text.transform.localPosition = new Vector3(-0.6759f, -0.4786608f, -4f);
+
+
+			//Failed;Succeded
+			text = (GameObject)Instantiate(Succeeded);
+			text.transform.parent = this.transform;
+			text.transform.localPosition = new Vector3(-0.679f, -0.455f, -4f);
+
+
+
             winGlow = true;
             if (petalsLeft < 4)     //regrow petals
             {
@@ -130,6 +142,10 @@ public class GreyBox : MonoBehaviour
             text = (GameObject)Instantiate(PressJump);
             text.transform.parent = this.transform;
             text.transform.localPosition = new Vector3(-0.6759f, -0.4786608f, -4f);
+
+			text = (GameObject)Instantiate(Failed);
+			text.transform.parent = this.transform;
+			text.transform.localPosition = new Vector3(-0.679f, -0.455f, -4f);
 
             switch (petalsLeft)
             {

@@ -9,6 +9,8 @@ public class LevelManager : MonoBehaviour
 
 	private int tileDeathPerMissingLive = 3;
 
+	public List<GameObject> GrassTileList = new List<GameObject> ();
+
     private static LevelManager _LevelManager;
     public static LevelManager levelManager
     {
@@ -116,6 +118,11 @@ public class LevelManager : MonoBehaviour
         foreach (InteractableObject obj in GameObject.FindObjectsOfType(typeof(InteractableObject)))
         {
             _InteractableObjects.Add(obj.gameObject);                   //fills a list full of all the interactive objects
+
+			if (obj.GetType() == typeof(Grass))
+			{
+				GrassTileList.Add(obj.transform.parent.gameObject);
+			}
             _NonCorruptedObjects.Add(obj.gameObject);                  //Fills the list at start full of all the objects. Ones that start corrupted will be taken of in Start() on Interactable object after.
 //			if (obj.GetType() == typeof(Flower))
 //			{

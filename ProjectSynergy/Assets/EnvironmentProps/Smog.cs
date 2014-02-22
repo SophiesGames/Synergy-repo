@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Smog : MonoBehaviour 
 {
-    public float SmogCap = 0.9f;
+    public float SmogCap = 0.8f;
     private float transparency;
 
     private void Update()
