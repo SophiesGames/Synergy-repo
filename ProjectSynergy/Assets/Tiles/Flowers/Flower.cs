@@ -23,7 +23,7 @@ public class Flower : InteractableObject
 			if(item.transform.position.x == thisPos.x 
 			   && item.transform.position.y == thisPos.y)
 			{
-				grassTile = item.GetComponent<Grass>();
+				grassTile = item.transform.FindChild("GrassLogic").GetComponent<Grass>();
 				break;
 			}
 
