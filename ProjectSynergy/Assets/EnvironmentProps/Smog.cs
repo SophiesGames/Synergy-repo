@@ -8,7 +8,7 @@ public class Smog : MonoBehaviour
 
     private void Update()
     {
-        transparency = LevelManager.levelManager.corruptedObjects.Count * 0.08f;
+        transparency = LevelManager.levelManager.corruptedObjects.Count * 0.05f;
 
         if (transparency > SmogCap)
         {

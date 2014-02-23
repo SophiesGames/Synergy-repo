@@ -9,12 +9,27 @@ public class Nut : MonoBehaviour
     private Vector3 growthPosition = new Vector3(0, 0, 0);
 	private bool dragging = false;
 
+	private Collision FirstGrassCollision;
+	private float FirstContactArea = 0f;
+
+	private void OnCollisionStay(Collision collision)
+	{
+		if (hasFallen == true && this.rigidbody.velocity.y == 0 && collision.collider.tag == "Grass")
+		{
+			Debug.Log("Collider is Grass");
+			LevelManager.levelManager.healingFinished = false;
+			NutActivateExplosion(collision);
+		}
+	}
+
     private void Update()
     {
         if (this.rigidbody.velocity.y < -1)
         {
             hasFallen = true;
         }
+
+
 
         // @todo: AD: Perhaps convert this to Fabric?
         if (this.rigidbody.velocity.x != 0 && dragging == false)
@@ -59,13 +74,14 @@ public class Nut : MonoBehaviour
         }
     }
 
-    //if this code proves buggy, it might be that the list is being filled in a function that is lost when it retursn to the main function.
+    ///i was getting numbers for the first colsion as 10.9 and then the second as 11. Two different points meant none could work.
+	/// solved by checking if its exploded yet with a timer.
     private void NutActivateExplosion(Collision collision)
     {
         float contactArea;
 
-		//NEW clarification comment: This checks to see if [0] and [1] are == in x as that means they are abve each other.
-		//if so i use the 3rd point [2] instead so i ahve points from different sides of square(i dont check for top or bttom corner)
+		//NEW clarification comment: This checks to see if [0] and [1] are == in x as that means they are vertically aligned on y axis
+		//if so i use the 3rd point [2] instead so i ahve points from different sides of square(i dont check for top or bttom corner) so i dont care if its top row or bootom or diagonal
         if (Mathf.Round(collision.contacts[0].point.x * 10f) / 10f != Mathf.Round(collision.contacts[1].point.x * 10f) / 10f)                                 //stupid statement but the corners the array corrsepond to changes randomly it seems. These numbers msut be rounded to 1 decimal place to ignore tiny differences.
         {
 
@@ -76,9 +92,9 @@ public class Nut : MonoBehaviour
             contactArea = collision.contacts[0].point.x - collision.contacts[2].point.x;
         }
         contactArea = Mathf.Abs(contactArea);                 //avoid negative numbers
-        if (contactArea >= 0.41f)                               //this check will only apply to 1 square. the one who should act as the centre point for nut functioality
+		if (contactArea >= 0.5f)                               //this check will only apply to 1 square. the one who should act as the centre point for nut functioality
         {
-			Debug.Log("found a contact area >= 0.41f");
+			Debug.Log("found a contact area:"+ contactArea +" >= 0.5f");
             List<Vector3> affectedSquarePositions = new List<Vector3>();                //Create a lsit of positions that should be checked for healing
             FindAffectedSquares(affectedSquarePositions, collision);
             HealAffectedSquares(affectedSquarePositions);
@@ -86,7 +102,20 @@ public class Nut : MonoBehaviour
         }
 		else
 		{
-			Debug.Log("contactArea:" + contactArea + " which is not bigger than 0.41f so ignoring this as a square that only had minor contact");
+			if (FirstGrassCollision != null )
+			{
+				Collision chosenCollider = FirstContactArea > contactArea ? FirstGrassCollision : collision;
+				List<Vector3> affectedSquarePositions = new List<Vector3>();                //Create a lsit of positions that should be checked for healing
+				FindAffectedSquares(affectedSquarePositions, chosenCollider);
+				HealAffectedSquares(affectedSquarePositions);
+				NutDestroy();
+			}
+			else
+			{
+				FirstGrassCollision = collision;
+				FirstContactArea = contactArea;
+			}
+			Debug.Log("contactArea:" + contactArea + "");
 		}
     }
 
