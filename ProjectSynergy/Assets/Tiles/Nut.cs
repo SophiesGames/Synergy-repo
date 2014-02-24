@@ -29,20 +29,18 @@ public class Nut : MonoBehaviour
             hasFallen = true;
         }
 
-
-
-        // @todo: AD: Perhaps convert this to Fabric?
-        if (this.rigidbody.velocity.x != 0 && dragging == false)
+		// Play acorn dragging sound.
+        if (this.rigidbody.velocity.x != 0 && dragging == false && this.rigidbody.velocity.y > -1)
         {
             //audio.Play();
 			Fabric.EventManager.Instance.PostEvent("AcornDrag");
 			dragging = true;
-        }
+		}
         else if (this.rigidbody.velocity.x == 0 || hasFallen == true)
         {
             //audio.Stop();
 			Fabric.EventManager.Instance.PostEvent("AcornDrag",  Fabric.EventAction.StopSound);
-			//dragging = false;
+			dragging = false;
         }
         //if (this.rigidbody.velocity.x < 0 && this.transform.localScale.x > 0)
         //{
