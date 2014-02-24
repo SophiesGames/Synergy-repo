@@ -105,7 +105,7 @@ public class MusicManager : MonoBehaviour
         switch (currentScene)
         {
         case 0:
-			//Debug.Log("Case 0");
+			Debug.Log("Case 0");
             if (savedPlayerLevel > 0) {
                 // Do nothing. This screen should be silent.
             }
@@ -114,6 +114,7 @@ public class MusicManager : MonoBehaviour
                 Fabric.EventManager.Instance.PostEvent ("IntroMusic");
             }
 			Fabric.EventManager.Instance.PostEvent("Stop/MainMusic");
+			Fabric.EventManager.Instance.PostEvent("Stop/Results");
             break;
             
         case 1:
