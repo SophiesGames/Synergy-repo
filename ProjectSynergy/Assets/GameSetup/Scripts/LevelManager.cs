@@ -25,11 +25,11 @@ public class LevelManager : MonoBehaviour
     }
     private int timeAtLevelStart = 0;
 
-    public int levelPlayTime
+	public float levelPlayTime
     {
         get
         {
-            int levelPlayTime = (int)Time.realtimeSinceStartup - timeAtLevelStart;
+			float levelPlayTime = (float)Time.realtimeSinceStartup - timeAtLevelStart;
             return levelPlayTime;
         }
     }

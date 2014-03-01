@@ -7,6 +7,8 @@ public class GreyBox : MonoBehaviour
     public GameObject PressN;
 	public GameObject Failed;
 	public GameObject Succeeded;
+	public GameObject FailedShadow;
+	public GameObject SucceededShadow;
 
     private GameObject text;
     public float delayBeforeAnimation = 1;
@@ -94,7 +96,10 @@ public class GreyBox : MonoBehaviour
 			//Failed;Succeded
 			text = (GameObject)Instantiate(Succeeded);
 			text.transform.parent = this.transform;
-			text.transform.localPosition = new Vector3(-0.679f, -0.455f, -4f);
+			text.transform.localPosition = new Vector3(-0.6791f, -0.4551999f, -4f);
+			text = (GameObject)Instantiate(SucceededShadow);
+			text.transform.parent = this.transform;
+			text.transform.localPosition = new Vector3(-0.6790002f, -0.4549999f, -4f);
 
 
 
@@ -145,7 +150,10 @@ public class GreyBox : MonoBehaviour
 
 			text = (GameObject)Instantiate(Failed);
 			text.transform.parent = this.transform;
-			text.transform.localPosition = new Vector3(-0.679f, -0.455f, -4f);
+			text.transform.localPosition = new Vector3(-0.6791f, -0.4551999f, -4f);
+			text = (GameObject)Instantiate(FailedShadow);
+			text.transform.parent = this.transform;
+			text.transform.localPosition = new Vector3(-0.6790002f, -0.4549999f, -4f);
 
             switch (petalsLeft)
             {

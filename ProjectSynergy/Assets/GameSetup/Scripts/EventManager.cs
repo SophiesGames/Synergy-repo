@@ -101,6 +101,21 @@ public class EventManager : MonoBehaviour
 								GameObject.Find ("PlayerFade").gameObject.GetComponent<Player> ().freezePlayer = true;
 
 								if (LevelManager.levelManager.levelPlayTime > 1) {
+
+
+										if (PlayerPrefs.GetInt ("levelNumber") > 0) {
+											// Do nothing. This screen should be silent.
+										}
+										else {
+											// Play intro music.
+											Fabric.EventManager.Instance.PostEvent ("IntroMusic");
+										}
+										Fabric.EventManager.Instance.PostEvent("Stop/MainMusic");
+										Fabric.EventManager.Instance.PostEvent("Stop/Results");
+
+
+
+
                                         GameObject.Find ("Advancement").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
 										eventIndex++;
 								}
@@ -108,17 +123,28 @@ public class EventManager : MonoBehaviour
 						}
 
 				case 2:
+				{
+					GameObject.Find ("PlayerFade").gameObject.GetComponent<Player> ().freezePlayer = true;
+					
+					if (LevelManager.levelManager.levelPlayTime > 2) {
+						GameObject.Find ("Advancement").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
+						eventIndex++;
+					}
+					break;
+				}
+
+				case 3:
 						{
-								if (LevelManager.levelManager.levelPlayTime > 3.5) {
+								if (LevelManager.levelManager.levelPlayTime > 4.5) {
 										GameObject.Find ("Progression").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
 										eventIndex++;
 								}
 								break;
 						}
 
-				case 3:
+				case 4:
 						{
-								if (LevelManager.levelManager.levelPlayTime > 6) {
+								if (LevelManager.levelManager.levelPlayTime > 7) {
 										GameObject.Find ("ToAchieve").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
 
 										//play sound made on victory
@@ -128,31 +154,31 @@ public class EventManager : MonoBehaviour
 								break;
 						}
 
-				case 4:
+				case 5:
 						{
-								if (LevelManager.levelManager.levelPlayTime > 8.5) {
+								if (LevelManager.levelManager.levelPlayTime > 9.5) {
 										GameObject.Find ("TheEssence").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
 										eventIndex++;
 								}
 								break;
 						}
 
-		case 5:
-		{
-			if (LevelManager.levelManager.levelPlayTime > 11.5) {
-				GameObject.Find ("PlayerFade").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
-				GameObject.Find ("PlayerFade").transform.Find("PlayerParticleSystem").GetComponent<ParticleSystem>().Play();
-				GameObject.Find ("PlayerFade").transform.Find("JumpParticles").GetComponent<ParticleSystem>().Play();
-				//play sound for player
-				//play human animation
-				eventIndex++;
-			}
-			break;
-		}
-
 				case 6:
+				{
+					if (LevelManager.levelManager.levelPlayTime > 12.5) {
+						GameObject.Find ("PlayerFade").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
+						GameObject.Find ("PlayerFade").transform.Find("PlayerParticleSystem").GetComponent<ParticleSystem>().Play();
+						GameObject.Find ("PlayerFade").transform.Find("JumpParticles").GetComponent<ParticleSystem>().Play();
+						//play sound for player
+						//play human animation
+						eventIndex++;
+					}
+					break;
+				}
+
+				case 7:
 						{
-								if (LevelManager.levelManager.levelPlayTime > 13) {
+								if (LevelManager.levelManager.levelPlayTime > 15) {
 										GameObject.Find ("YearnsFor").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
 				                        GameObject.Find ("WinFade").transform.Find("GoalParticles").GetComponent<ParticleSystem>().Play();
 										GameObject.Find ("WinLogic").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
@@ -163,9 +189,9 @@ public class EventManager : MonoBehaviour
 								break;
 						}
 
-				case 7:
+				case 8:
 						{
-								if (LevelManager.levelManager.levelPlayTime > 17) {
+								if (LevelManager.levelManager.levelPlayTime > 18) {
 
 										GameObject.Find ("PlayerFade").gameObject.GetComponent<Player> ().freezePlayer = false;
 										GameObject.Find ("MovementInstruc").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);

@@ -106,15 +106,15 @@ public class MusicManager : MonoBehaviour
         {
         case 0:
 			//Debug.Log("Case 0");
-            if (savedPlayerLevel > 0) {
-                // Do nothing. This screen should be silent.
-            }
-            else {
-                // Play intro music.
-                Fabric.EventManager.Instance.PostEvent ("IntroMusic");
-            }
-			Fabric.EventManager.Instance.PostEvent("Stop/MainMusic");
-			Fabric.EventManager.Instance.PostEvent("Stop/Results");
+//            if (savedPlayerLevel > 0) {
+//                // Do nothing. This screen should be silent.
+//            }
+//            else {
+//                // Play intro music.
+//                Fabric.EventManager.Instance.PostEvent ("IntroMusic");
+//            }
+//			Fabric.EventManager.Instance.PostEvent("Stop/MainMusic");
+//			Fabric.EventManager.Instance.PostEvent("Stop/Results");
             break;
             
         case 1:
