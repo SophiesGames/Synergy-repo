@@ -93,13 +93,16 @@ public class GreyBox : MonoBehaviour
             text.transform.localPosition = new Vector3(-0.6759f, -0.4786608f, -4f);
 
 
-			//Failed;Succeded
-			text = (GameObject)Instantiate(Succeeded);
-			text.transform.parent = this.transform;
-			text.transform.localPosition = new Vector3(-0.6791f, -0.4551999f, -4f);
-			text = (GameObject)Instantiate(SucceededShadow);
-			text.transform.parent = this.transform;
-			text.transform.localPosition = new Vector3(-0.6790002f, -0.4549999f, -4f);
+			if (Succeeded != null)
+			{
+				//Failed;Succeded
+				text = (GameObject)Instantiate(Succeeded);
+				text.transform.parent = this.transform;
+				text.transform.localPosition = new Vector3(-0.6791f, -0.4551999f, -4f);
+				text = (GameObject)Instantiate(SucceededShadow);
+				text.transform.parent = this.transform;
+				text.transform.localPosition = new Vector3(-0.6790002f, -0.4549999f, -4f);
+			}
 
 
 
@@ -148,12 +151,15 @@ public class GreyBox : MonoBehaviour
             text.transform.parent = this.transform;
             text.transform.localPosition = new Vector3(-0.6759f, -0.4786608f, -4f);
 
-			text = (GameObject)Instantiate(Failed);
-			text.transform.parent = this.transform;
-			text.transform.localPosition = new Vector3(-0.6791f, -0.4551999f, -4f);
-			text = (GameObject)Instantiate(FailedShadow);
-			text.transform.parent = this.transform;
-			text.transform.localPosition = new Vector3(-0.6790002f, -0.4549999f, -4f);
+			if (Failed != null)
+			{
+				text = (GameObject)Instantiate(Failed);
+				text.transform.parent = this.transform;
+				text.transform.localPosition = new Vector3(-0.6791f, -0.4551999f, -4f);
+				text = (GameObject)Instantiate(FailedShadow);
+				text.transform.parent = this.transform;
+				text.transform.localPosition = new Vector3(-0.6790002f, -0.4549999f, -4f);
+			}
 
             switch (petalsLeft)
             {
