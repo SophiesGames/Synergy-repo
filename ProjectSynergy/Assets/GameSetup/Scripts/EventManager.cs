@@ -302,6 +302,7 @@ public class EventManager : MonoBehaviour
 				case 3:
 						{
 								if (LevelManager.levelManager.levelPlayTime > 3) {//change to after has healed
+				GameObject.Find ("BackgroundFade").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
 										GameObject.Find ("HorizontalHealLogic").gameObject.GetComponent<HorizontalHeal> ().HealHorizontally ();
 										eventIndex++;
 								}
@@ -337,7 +338,7 @@ public class EventManager : MonoBehaviour
 										GameObject.Find ("EarthHas").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 0.0f);
 										GameObject.Find ("WithPerception").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 0.0f);
 										GameObject.Find ("CanWe").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 0.0f);
-										GameObject.Find ("BackgroundFade").gameObject.GetComponent<AnimateRGB> ().SetRGBA (4, 1.0f);
+										
 										eventIndex++;
 								}
 								break;
