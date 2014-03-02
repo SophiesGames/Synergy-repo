@@ -11,6 +11,8 @@ public class Nut : MonoBehaviour
 
 	private Collision FirstGrassCollision;
 	private float FirstContactArea = 0f;
+	private bool startTimer = false;
+	private int timer = 0;
 
 	private void OnCollisionStay(Collision collision)
 	{
@@ -24,6 +26,22 @@ public class Nut : MonoBehaviour
 
     private void Update()
     {
+		//if 100 frames gone by since hitting then it menas its only hit 1 grass tile and not exploded. rectify this!
+		if (startTimer) 
+		{
+			timer ++;
+			if (timer > 5)
+			{
+				Collision chosenCollider = FirstGrassCollision;
+				List<Vector3> affectedSquarePositions = new List<Vector3>();                //Create a lsit of positions that should be checked for healing
+				FindAffectedSquares(affectedSquarePositions, chosenCollider);
+				HealAffectedSquares(affectedSquarePositions);
+				NutDestroy();
+			}
+		}
+
+
+
         if (this.rigidbody.velocity.y < -1)
         {
             hasFallen = true;
@@ -100,6 +118,8 @@ public class Nut : MonoBehaviour
         }
 		else
 		{
+			startTimer = true;
+
 			if (FirstGrassCollision != null )
 			{
 				Collision chosenCollider = FirstContactArea > contactArea ? FirstGrassCollision : collision;
