@@ -114,6 +114,13 @@ public class GameManagerC : MonoBehaviour
 
     public void ReloadLevel()
     {
+		// Level 3 is an exception, since it doesn't have a result screen before it. 
+		// So the Music Manager is not handling it. We need to stop "End Music" and start normal music here.
+		if (Application.loadedLevel == 2) {
+			Fabric.EventManager.Instance.PostEvent("MainMusic");
+			Fabric.EventManager.Instance.PostEvent("Stop/Results");
+		}
+
         Playtomic.Log.LevelCounterMetric("Restarts", LevelManager.levelManager.levelDetails);
         LoadLevelNumber(Application.loadedLevel);
     }
