@@ -170,8 +170,8 @@ public class MusicManager : MonoBehaviour
 
 		// Play sound flourish on the word Synergy.
 		if (currentScene == 2) {
-			levelTimer += Time.deltaTime;
-			if (levelTimer > 10 && playedFlourish == false) {
+			//levelTimer += Time.deltaTime;
+			if (LevelManager.levelManager.levelPlayTime > 9.7 && playedFlourish == false) {
 				Fabric.EventManager.Instance.PostEvent ("Flourish");
 				playedFlourish = true;
 			}
