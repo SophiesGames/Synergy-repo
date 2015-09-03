@@ -2,8 +2,8 @@
 # =============================================================================== #
 #My convention folder for saving files via bit torrent sync, not meant for GitHub #
 # =============================================================================== #
-SupportingFiles*/
-
+/Assets*/
+ 
 # =============== #
 # Unity generated #
 # =============== #
@@ -32,10 +32,10 @@ ExportedObj/
 Assembly-CSharp-Editor.pidb.meta
 Assembly-CSharp.pidb.meta
 *.userprefs
-*.csproj
 *.pidb
 *.suo
-*.sln
+*.Editor.csproj
+*.CSharp.csproj
  
 # ============ #
 # OS generated #
@@ -54,7 +54,7 @@ Thumbs.db
 # ======================================================================= #
 [Bb]in/
 [Oo]bj/
-
+*.dll
 
 # ==============#
 # Build results
@@ -82,58 +82,20 @@ x64/
 *.vssscc
 .builds
 
-# Visual C++ cache files
-ipch/
-*.aps
-*.ncb
-*.opensdf
-*.sdf
-
-# Visual Studio profiler
-*.psess
-*.vsp
-*.vspx
-
-# Guidance Automation Toolkit
-*.gpState
-
-# ReSharper is a .NET coding add-in
-_ReSharper*
-
-# NCrunch
-*.ncrunch*
-.*crunch*.local.xml
-
-# Installshield output folder 
-[Ee]xpress
-
-# DocProject is a documentation generator add-in
-DocProject/buildhelp/
-DocProject/Help/*.HxT
-DocProject/Help/*.HxC
-DocProject/Help/*.hhc
-DocProject/Help/*.hhk
-DocProject/Help/*.hhp
-DocProject/Help/Html2
-DocProject/Help/html
-
-# Click-Once directory
-publish
-
-# Publish Web Output
+# ==============#
+#  Publish Web Output
+# ============== #
 *.Publish.xml
 
+# ==============#
 # NuGet Packages Directory
+# ============== # 
 packages
+NuGet.exe
 
-# Windows Azure Build Output
-csx
-*.build.csdef
-
-# Windows Store app package directory
-AppPackages/
-
-# Others
+# ==============#
+# others
+# ============== # 
 [Bb]in
 [Oo]bj
 sql
@@ -146,8 +108,13 @@ ClientBin
 *.dbmdl
 Generated_Code #added for RIA/Silverlight projects
 
+# ======================================================================#
 # Backup & report files from converting an old project file to a newer
-# Visual Studio version. Backup files are not needed, because we have git ;-)
+# ====================================================================== # 
 _UpgradeReport_Files/
 Backup*/
 UpgradeLog*.XML
+
+# =============#
+# Added extras #
+# =============# 
