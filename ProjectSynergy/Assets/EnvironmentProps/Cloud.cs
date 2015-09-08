@@ -9,9 +9,9 @@ public class Cloud : MonoBehaviour
     {
         cloudSystem = this.gameObject.transform.parent.gameObject.GetComponent<CloudSystem>();
 
-        Color color = renderer.material.color;
+        Color color = GetComponent<Renderer>().material.color;
         color.a = cloudSystem.opacity;
-        this.renderer.material.color = color;
+        this.GetComponent<Renderer>().material.color = color;
     }
 
     private void Update()      

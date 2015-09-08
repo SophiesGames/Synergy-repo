@@ -36,7 +36,7 @@ public class GreyBox : MonoBehaviour
 //            this.transform.FindChild("Petal4").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1);
 //            this.transform.FindChild("PlantHead").gameObject.GetComponent<AnimateRGB>().SetRGBA(4, 1);
             //int percentComplete = (Application.loadedLevel * 5);//gets out of 100% by times by 5
-            GUIText progressText = this.transform.FindChild("YourProgression").gameObject.guiText;
+            GUIText progressText = this.transform.FindChild("YourProgression").gameObject.GetComponent<GUIText>();
             progressText.text = Application.loadedLevel + "/22";
         }
     }

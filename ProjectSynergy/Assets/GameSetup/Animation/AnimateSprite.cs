@@ -53,11 +53,11 @@ public class AnimateSprite : MonoBehaviour
     {
         if (EditorApplication.isPlaying)                            //seperate instances for individual manipulation
         {
-            materialInstance = this.renderer.material;
+            materialInstance = this.GetComponent<Renderer>().material;
         }
         else
         {
-            materialInstance = this.renderer.sharedMaterial;              //keep them all the same for easy of use. does need to be stated.
+            materialInstance = this.GetComponent<Renderer>().sharedMaterial;              //keep them all the same for easy of use. does need to be stated.
         }
         ParseFrames();
         animationTimer = new AnimationTimer();
@@ -136,7 +136,7 @@ public class AnimateSprite : MonoBehaviour
     private void ParseFrames()
     {
         frames = null;
-        string XMLSheet = this.renderer.sharedMaterial.mainTexture.name;
+        string XMLSheet = this.GetComponent<Renderer>().sharedMaterial.mainTexture.name;
 
         for (int i = 0; i < AnimationXMLData.animationXMLData.loadedXMLS.Count; i++)
         {

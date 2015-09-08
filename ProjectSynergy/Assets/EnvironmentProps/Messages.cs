@@ -7,6 +7,6 @@ public class Messages : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        renderer.material.mainTexture = texture;
+        GetComponent<Renderer>().material.mainTexture = texture;
     }
 }

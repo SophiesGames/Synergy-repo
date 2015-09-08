@@ -25,15 +25,15 @@ public class AnimateRGB : MonoBehaviour
 
     private void Awake()
     {
-        if (gameObject.guiText == null)//its not a text
+        if (gameObject.GetComponent<GUIText>() == null)//its not a text
         {
-            gameObject.renderer.material.color = new Color(origRed, origGreen, origBlue, origAlpha);
-            color = gameObject.renderer.material.color;
+            gameObject.GetComponent<Renderer>().material.color = new Color(origRed, origGreen, origBlue, origAlpha);
+            color = gameObject.GetComponent<Renderer>().material.color;
         }
         else
         {
-            guiText.material.color = new Color(origRed, origGreen, origBlue, origAlpha);
-            color = guiText.material.color;
+            GetComponent<GUIText>().material.color = new Color(origRed, origGreen, origBlue, origAlpha);
+            color = GetComponent<GUIText>().material.color;
         }
         //guiText.font.material.color = new Color(origRed, origGreen, origBlue, origAlpha);
         
@@ -67,13 +67,13 @@ public class AnimateRGB : MonoBehaviour
         {
             CheckAlpha();
         }
-        if (gameObject.guiText == null)//its not a text
+        if (gameObject.GetComponent<GUIText>() == null)//its not a text
         {
-            renderer.material.SetColor("_Color", color);
+            GetComponent<Renderer>().material.SetColor("_Color", color);
         }
         else
         {
-            guiText.material.color = new Color(color.r, color.g, color.b, color.a);
+            GetComponent<GUIText>().material.color = new Color(color.r, color.g, color.b, color.a);
         }
     }
 

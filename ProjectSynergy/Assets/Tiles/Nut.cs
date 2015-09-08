@@ -16,7 +16,7 @@ public class Nut : MonoBehaviour
 
 	private void OnCollisionStay(Collision collision)
 	{
-		if (hasFallen == true && this.rigidbody.velocity.y == 0 && collision.collider.tag == "Grass")
+		if (hasFallen == true && this.GetComponent<Rigidbody>().velocity.y == 0 && collision.collider.tag == "Grass")
 		{
 			Debug.Log("Collider is Grass");
 			LevelManager.levelManager.healingFinished = false;
@@ -42,19 +42,19 @@ public class Nut : MonoBehaviour
 
 
 
-        if (this.rigidbody.velocity.y < -1)
+        if (this.GetComponent<Rigidbody>().velocity.y < -1)
         {
             hasFallen = true;
         }
 
 		// Play acorn dragging sound.
-        if (this.rigidbody.velocity.x != 0 && dragging == false && this.rigidbody.velocity.y > -1)
+        if (this.GetComponent<Rigidbody>().velocity.x != 0 && dragging == false && this.GetComponent<Rigidbody>().velocity.y > -1)
         {
             //audio.Play();
 			Fabric.EventManager.Instance.PostEvent("AcornDrag");
 			dragging = true;
 		}
-        else if (this.rigidbody.velocity.x == 0 || hasFallen == true)
+        else if (this.GetComponent<Rigidbody>().velocity.x == 0 || hasFallen == true)
         {
             //audio.Stop();
 			Fabric.EventManager.Instance.PostEvent("AcornDrag",  Fabric.EventAction.StopSound);

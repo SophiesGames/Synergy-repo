@@ -70,7 +70,7 @@ public class Playtomic : MonoBehaviour
 		var go = new GameObject("playtomic");
 		GameObject.DontDestroyOnLoad(go);
 			
-		_instance = go.AddComponent("Playtomic") as Playtomic;
+		_instance = go.AddComponent<Playtomic>() as Playtomic;
 		_instance._gameid = gameid;
 		_instance._gameguid = gameguid;
 		_instance._sourceUrl = string.IsNullOrEmpty(Application.absoluteURL) ? "http://localhost/" : Application.absoluteURL;
