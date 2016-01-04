@@ -34,12 +34,10 @@ public class AnimateSprite : MonoBehaviour
     [HideInInspector]
     public Vector2 atlasDimension = new Vector2();
 
-    
-
 #if !UNITY_EDITOR
     private void Awake()                                             //For outside of unity
     {
-        materialInstance = this.renderer.material;
+          materialInstance = GetComponent<Renderer>().material;// this.renderer.material;
         ParseFrames();
         animationTimer = new AnimationTimer();
     }

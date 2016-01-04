@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b82f3ab1ed4adcb44a6fbc8151883465
+guid: fa96ce93678695845b80bdc44abdad71
 PluginImporter:
   serializedVersion: 1
   iconMap: {}
@@ -13,6 +13,10 @@ PluginImporter:
       enabled: 1
       settings:
         DefaultValueInitialized: true
+    WindowsStoreApps:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
   userData: 
   assetBundleName: 
   assetBundleVariant: 
