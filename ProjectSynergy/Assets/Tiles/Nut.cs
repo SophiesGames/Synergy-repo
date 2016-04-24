@@ -94,19 +94,20 @@ public class Nut : MonoBehaviour
 	/// solved by checking if its exploded yet with a timer.
     private void NutActivateExplosion(Collision collision)
     {
-        float contactArea;
+        float contactArea = 0.6f;
 
 		//NEW clarification comment: This checks to see if [0] and [1] are == in x as that means they are vertically aligned on y axis
 		//if so i use the 3rd point [2] instead so i ahve points from different sides of square(i dont check for top or bttom corner) so i dont care if its top row or bootom or diagonal
-        if (Mathf.Round(collision.contacts[0].point.x * 10f) / 10f != Mathf.Round(collision.contacts[1].point.x * 10f) / 10f)                                 //stupid statement but the corners the array corrsepond to changes randomly it seems. These numbers msut be rounded to 1 decimal place to ignore tiny differences.
-        {
+        //if (Mathf.Round(collision.contacts[0].point.x * 10f) / 10f != Mathf.Round(collision.contacts[1].point.x * 10f) / 10f)                                 //stupid statement but the corners the array corrsepond to changes randomly it seems. These numbers msut be rounded to 1 decimal place to ignore tiny differences.
+        //{
 
-            contactArea = collision.contacts[0].point.x - collision.contacts[1].point.x;
-        }
-        else
-        {
-            contactArea = collision.contacts[0].point.x - collision.contacts[2].point.x;
-        }
+        //    contactArea = collision.contacts[0].point.x - collision.contacts[1].point.x;
+        //}
+        //else
+        //{
+        //    contactArea = collision.contacts[0].point.x - collision.contacts[2].point.x;
+        //}
+
         contactArea = Mathf.Abs(contactArea);                 //avoid negative numbers
 		if (contactArea >= 0.5f)                               //this check will only apply to 1 square. the one who should act as the centre point for nut functioality
         {

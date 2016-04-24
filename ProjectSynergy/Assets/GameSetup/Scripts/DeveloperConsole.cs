@@ -14,7 +14,9 @@ public class DeveloperConsole : MonoBehaviour
         {
             GUI.TextField(new Rect(450, 10, 150, 20), LevelManager.levelManager.levelDetails);
 
-            if (GameManagerC.gameManager.isConsoleActive)
+
+        }
+        if (GameManagerC.gameManager.isConsoleActive)
             {
                 Event e = Event.current;
 
@@ -28,7 +30,6 @@ public class DeveloperConsole : MonoBehaviour
                     consoleInput = GUI.TextField(new Rect(450, 30, 150, 20), consoleInput);
                 }
             }
-        }
     }
 
     private bool ReadString()

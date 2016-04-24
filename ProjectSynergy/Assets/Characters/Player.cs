@@ -116,6 +116,9 @@ public class Player : MonoBehaviour
         }
         //Debug.Log("after " + velocity.x);
         controller.Move(velocity * Time.deltaTime);
+        //some physics thing was making it move in the z and casuign it to fall through
+        controller.transform.position = new Vector3(controller.transform.position.x, controller.transform.position.y, 0);
+
         LevelManager.levelManager.LogHeatMap(controller.transform.position.x, controller.transform.position.y);
     }
 
